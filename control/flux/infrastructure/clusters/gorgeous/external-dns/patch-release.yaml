@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  values:
+    digitalocean:
+      ## @param digitalocean.secretName Use an existing secret with key "digitalocean_api_token" defined.
+      secretName: digitalocean-dns
