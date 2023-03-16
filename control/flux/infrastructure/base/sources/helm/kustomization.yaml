@@ -3,4 +3,6 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - bitnami.yaml
+  - istio.yaml
   - jetstack.yaml
+  - prometheus-community.yaml
