@@ -31,8 +31,7 @@ spec:
           memory: 100Mi
     prometheus:
       prometheusSpec:
-        priorityClassName: infra-cluster-critical
-        retention: 24h
+        retention: 7d
         resources:
           limits:
             memory: 256Mi
