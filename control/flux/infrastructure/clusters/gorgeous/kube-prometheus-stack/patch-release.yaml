@@ -35,5 +35,7 @@ spec:
         ingressClassName: traefik
         hosts:
           - grafana.mattera.io
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: grafana.mattera.io
       serviceMonitor:
         enabled: true
