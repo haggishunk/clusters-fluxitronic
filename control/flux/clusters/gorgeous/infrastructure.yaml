@@ -10,3 +10,7 @@ spec:
     name: flux-system
   path: "./control/flux/infrastructure/clusters/gorgeous"
   prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-hcvault
