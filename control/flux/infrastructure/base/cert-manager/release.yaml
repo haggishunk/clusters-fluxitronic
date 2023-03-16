@@ -13,4 +13,10 @@ spec:
         name: jetstack
         namespace: flux-system
       interval: 30m
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
   values: {}
