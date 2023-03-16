@@ -25,10 +25,10 @@ spec:
     prometheusOperator:
       resources:
         limits:
-          memory: 50Mi
+          memory: 100Mi
         requests:
           cpu: 100m
-          memory: 50Mi
+          memory: 100Mi
     prometheus:
       prometheusSpec:
         priorityClassName: infra-cluster-critical
@@ -48,7 +48,7 @@ spec:
     grafana:
       resources:
         limits:
-          memory: 128Mi
+          memory: 512Mi
         requests:
           cpu: 100m
-          memory: 128Mi
+          memory: 384Mi
