@@ -4,14 +4,12 @@ metadata:
   name: external-dns
 spec:
   values:
-    serviceMonitor:
-      enabled: true
     provider: digitalocean
+    digitalocean:
+      secretName: digitalocean-dns
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
     domainFilters:
       - mattera.io
-    env:
-      name: DO_TOKEN
-      valueFrom:
-        secretRef:
-          name: digitalocean-dns
-          key: token
