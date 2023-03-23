@@ -12,5 +12,11 @@ spec:
           - grafana.mattera.io
         annotations:
           external-dns.alpha.kubernetes.io/hostname: grafana.mattera.io
+          cert-manager.io/cluster-issuer: letsencrypt-acme-digitalocean
+        tls:
+          - secretName: kube-prometheus-stack-grafana-tls
+            hosts:
+              - grafana.mattera.io
+
       serviceMonitor:
         enabled: true
