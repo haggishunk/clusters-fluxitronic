@@ -31,12 +31,12 @@ spec:
           memory: 100Mi
     prometheus:
       prometheusSpec:
-        retention: 7d
+        retention: 1d
         resources:
           limits:
             memory: 512Mi
           requests:
-            cpu: 200m
+            cpu: 500m
             memory: 256Mi
         podMonitorSelectorNilUsesHelmValues: false
         podMonitorNamespaceSelector: {}
