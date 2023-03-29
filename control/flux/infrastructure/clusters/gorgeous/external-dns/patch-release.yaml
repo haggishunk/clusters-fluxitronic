@@ -9,7 +9,7 @@ spec:
       tag: v0.9.0-armv7
     provider: digitalocean
     digitalocean:
-      secretName: digitalocean-dns
+      secretName: digitalocean-token
     metrics:
       enabled: true
       serviceMonitor:
