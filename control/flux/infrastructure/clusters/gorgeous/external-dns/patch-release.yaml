@@ -4,6 +4,9 @@ metadata:
   name: external-dns
 spec:
   values:
+    image:
+      repository: haggishunk/external-dns
+      tag: v0.11.0-armv7
     provider: digitalocean
     digitalocean:
       secretName: digitalocean-dns
