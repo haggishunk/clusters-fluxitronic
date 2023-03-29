@@ -12,5 +12,5 @@ spec:
     - dns01:
         digitalocean:
           tokenSecretRef:
-            name: digitalocean-dns
-            key: DIGITALOCEAN_TOKEN
+            name: digitalocean-token
+            key: digitalocean_api_token
