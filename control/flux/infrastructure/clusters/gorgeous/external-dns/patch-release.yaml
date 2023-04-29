@@ -6,7 +6,7 @@ spec:
   values:
     image:
       repository: haggishunk/external-dns
-      tag: v0.9.0-armv7
+      tag: v0.13.4-armv7
     provider: digitalocean
     digitalocean:
       secretName: digitalocean-token
