@@ -5,7 +5,10 @@ metadata:
 spec:
   releaseName: loki
   values:
-    structuredConfig:
-      tableManager:
-        retention_period: 72h
-        retention_deletes_enabled: true
+    loki:
+      rbac:
+        pspEnabled: false
+      structuredConfig:
+        tableManager:
+          retention_period: 72h
+          retention_deletes_enabled: true
