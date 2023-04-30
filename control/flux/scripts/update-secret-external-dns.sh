@@ -7,6 +7,7 @@ SECRET_KEY=digitalocean_api_token
 DESTINATION_DIR=./infrastructure/clusters/gorgeous/external-dns
 
 echo $DIGITALOCEAN_TOKEN_EXTERNAL_DNS \
+    | tr -d '\n' \
     | kubectl create secret generic \
         $SECRET_NAME \
         -n default \
