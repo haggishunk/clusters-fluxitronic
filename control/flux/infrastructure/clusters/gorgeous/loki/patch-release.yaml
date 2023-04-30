@@ -5,6 +5,9 @@ metadata:
 spec:
   releaseName: loki
   values:
+    promtail:
+      rbac:
+        pspEnabled: false
     loki:
       rbac:
         pspEnabled: false
