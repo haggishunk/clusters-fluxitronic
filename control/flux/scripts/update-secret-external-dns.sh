@@ -1,5 +1,16 @@
 #!/usr/bin/bash
 
+# create a sops encrypted k8s secret resource
+# from an environment variable
+#
+# inputs:
+#
+# - environment variable
+# - secret name
+# - secret key
+# - destination dir
+# - vault address (optional)
+# - vault transit key name (optional)
 set -feuo pipefail
 
 SECRET_NAME=digitalocean-token
