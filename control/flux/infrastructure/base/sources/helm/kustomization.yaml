@@ -4,5 +4,6 @@ namespace: flux-system
 resources:
   - bitnami.yaml
   - istio.yaml
+  - grafana.yaml
   - jetstack.yaml
   - prometheus-community.yaml

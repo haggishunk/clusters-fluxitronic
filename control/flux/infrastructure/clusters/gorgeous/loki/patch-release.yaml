@@ -1,0 +1,11 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: loki
+spec:
+  releaseName: loki
+  values:
+    structuredConfig:
+      tableManager:
+        retention_period: 72h
+        retention_deletes_enabled: true
