@@ -39,7 +39,6 @@ spec:
             cpu: 500m
             memory: 256Mi
         podMonitorSelectorNilUsesHelmValues: false
-        podMonitorNamespaceSelector: {}
         podMonitorSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
