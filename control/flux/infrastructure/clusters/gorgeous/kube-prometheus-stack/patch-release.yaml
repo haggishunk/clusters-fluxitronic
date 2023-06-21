@@ -5,6 +5,9 @@ metadata:
 spec:
   values:
     grafana:
+      persistence:
+        enabled: true
+        storageClassName: local-path
       ingress:
         enabled: true
         ingressClassName: traefik
