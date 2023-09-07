@@ -13,11 +13,31 @@
 # - vault transit key name (optional)
 set -feuo pipefail
 
-SECRET_NAME=digitalocean-token
-SECRET_KEY=digitalocean_api_token
-DESTINATION_DIR=./infrastructure/clusters/gorgeous/external-dns
+APPLICATION=$1
 
-echo $DIGITALOCEAN_TOKEN_EXTERNAL_DNS \
+case $APPLICATION in
+    cert-manager)
+        SECRET_NAME=digitalocean-token
+        SECRET_KEY=digitalocean_api_token
+        DESTINATION_DIR=./infra-services/clusters/gorgeous/cert-manager
+        ;;
+    external-dns)
+        SECRET_NAME=digitalocean-token
+        SECRET_KEY=digitalocean_api_token
+        DESTINATION_DIR=./infrastructure/clusters/gorgeous/external-dns
+        ;;
+    *)
+        echo "$APPLICATION not supported" && exit 1
+        ;;
+esac
+
+echo "Updating secret for application: ${APPLICATION}"
+
+SECRET_FILE=$2
+
+echo "Sourcing secret from file: ${SECRET_FILE}..."
+
+cat "$SECRET_FILE" \
     | tr -d '\n' \
     | kubectl create secret generic \
         $SECRET_NAME \
