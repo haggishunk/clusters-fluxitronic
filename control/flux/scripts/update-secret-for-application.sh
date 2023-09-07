@@ -16,6 +16,12 @@ set -feuo pipefail
 APPLICATION=$1
 
 case $APPLICATION in
+    external-secrets)
+        SECRET_NAME=vault-approle-external-secrets
+        SECRET_KEY=vault-token
+        DESTINATION_DIR=./infra-services/clusters/gorgeous/external-secrets
+        ;;
+
     cert-manager)
         SECRET_NAME=digitalocean-token
         SECRET_KEY=digitalocean_api_token
