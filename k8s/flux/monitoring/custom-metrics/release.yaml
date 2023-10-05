@@ -22,4 +22,4 @@ spec:
   upgrade:
     crds: CreateReplace
   valuesFrom:
-    name: flux-custom-metrics
+  - name: flux-custom-metrics

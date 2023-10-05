@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
 - name: flux-custom-metrics
   files:
-  - config.yaml
+  - values.yaml
 configurations:
 - kustomizeconfig.yaml
