@@ -4,3 +4,4 @@ kustomize 5.0.0
 helm 3.11.2
 yq 4.32.2
 flux2 2.1.0
+yamlfmt 0.10.0
