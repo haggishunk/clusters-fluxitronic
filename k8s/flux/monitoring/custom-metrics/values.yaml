@@ -47,6 +47,7 @@ customResourceState:
             exported_namespace: [metadata, namespace]
             ready: [status, conditions, "[type=Ready]", status]
             suspended: [spec, suspend]
+            suspendedAnnotation: [metadata, annotations, reconcile.fluxcd.io/suspended]
             revision: [status, lastAppliedRevision]
             source_name: [spec, sourceRef, name]
       - groupVersionKind:
