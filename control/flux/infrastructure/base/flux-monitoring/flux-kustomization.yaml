@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: "./k8s/flux/monitoring/controllers"
+  path: "./k8s/flux/monitoring/custom-metrics"
   prune: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
