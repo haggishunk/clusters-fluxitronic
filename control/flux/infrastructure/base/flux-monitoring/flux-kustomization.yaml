@@ -9,8 +9,8 @@ spec:
   targetNamespace: flux-system
   sourceRef:
     kind: GitRepository
-    name: fluxcd-flux2-monitoring-example
-  path: "./monitoring/controllers"
+    name: flux-system
+  path: "./k8s/flux/monitoring/controllers"
   prune: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -21,8 +21,6 @@ spec:
   interval: 30m
   timeout: 2m0s
   targetNamespace: flux-system
-  dependsOn:
-  - name: flux-monitoring-controllers
   sourceRef:
     kind: GitRepository
     name: fluxcd-flux2-monitoring-example
