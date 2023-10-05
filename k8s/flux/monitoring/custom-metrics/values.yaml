@@ -272,3 +272,6 @@ customResourceState:
             ready: [status, conditions, "[type=Ready]", status]
             suspended: [spec, suspend]
             source_name: [spec, sourceRef, name]
+prometheus:
+  monitor:
+    enabled: true
