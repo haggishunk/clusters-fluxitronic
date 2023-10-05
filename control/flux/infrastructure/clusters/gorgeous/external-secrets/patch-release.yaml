@@ -4,6 +4,7 @@ metadata:
   name: external-secrets
 spec:
   values:
+    installCRDs: true
     image:
       repository: haggishunk/external-secrets
       tag: v0.9.4-armv7
