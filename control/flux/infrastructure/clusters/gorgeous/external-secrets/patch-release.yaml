@@ -8,3 +8,11 @@ spec:
     image:
       repository: haggishunk/external-secrets
       tag: v0.9.4-armv7
+    webhook:
+      image:
+        repository: haggishunk/external-secrets
+        tag: v0.9.4-armv7
+    certController:
+      image:
+        repository: haggishunk/external-secrets
+        tag: v0.9.4-armv7
