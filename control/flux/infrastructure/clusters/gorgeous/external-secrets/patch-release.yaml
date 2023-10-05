@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-secrets
+spec:
+  values:
+    image:
+      repository: haggishunk/external-secrets
+      tag: v0.9.4-arm7
