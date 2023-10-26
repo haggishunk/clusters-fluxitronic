@@ -8,6 +8,6 @@ spec:
   interval: 10m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux2 # fix me
   path: k8s/infrastructure/flux-monitoring
   prune: true
