@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux-system
+namePrefix: slack-
+resources:
+- ../general
+patches:
+- patch: |
+    - op: replace
+      path: /spec/type
+      value: slack
+    - op: add
+      path: /spec/channel
+      value: test-flux-notifications
+      create: true
+    - op: add
+      path: /spec/address
+      value: https://slack.com/api/chat.postMessage
+      create: true
+  target:
+    group: notification.toolkit.fluxcd.io
+    kind: Provider
+    version: v1beta2

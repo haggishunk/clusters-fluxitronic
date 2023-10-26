@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux-system
+namePrefix: gorgeous-
+nameSuffix: -general
+resources:
+- ../../../../base/flux-notifications/grafana
+patches:
+- patch: |
+    - op: add
+      path: /spec/address
+      value: https://grafana.mattera.io/api/annotations
+      create: true
+  target:
+    group: notification.toolkit.fluxcd.io
+    kind: Provider
+- patch: |
+    - op: add
+      path: /spec/eventMetadata/cluster
+      value: gorgeous
+      create: true
+  target:
+    group: notification.toolkit.fluxcd.io
+    kind: Alert

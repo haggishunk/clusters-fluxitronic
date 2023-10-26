@@ -1,0 +1,31 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux-system
+namePrefix: github-
+nameSuffix: -production-releases
+resources:
+- ../general
+patches:
+- patch: |
+    - op: replace
+      path: /spec/type
+      value: githubdispatch
+    - op: add
+      path: /spec/address
+      value: https://github.com/haggishunk/test-github-actions-flux
+      create: true
+  target:
+    group: notification.toolkit.fluxcd.io
+    kind: Provider
+    version: v1beta2
+- patch: |
+    - op: replace
+      path: /spec/eventSources
+      value:
+        - kind: Kustomization
+          name: "*"
+      create: true
+  target:
+    group: notification.toolkit.fluxcd.io
+    kind: Alert
+    version: v1beta2
