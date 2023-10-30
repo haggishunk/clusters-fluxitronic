@@ -15,7 +15,7 @@ spec:
       version: "0.9.5"
   interval: 1h0m0s
   install:
-    crds: skip
+    crds: Skip
     remediation:
       retries: 3
     timeout: 10m
