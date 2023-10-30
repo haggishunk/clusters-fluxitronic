@@ -52,7 +52,7 @@ flux bootstrap \
     --owner="$GITHUB_OWNER" \
     --repository="$github_repo" \
     --branch="$github_branch" \
-    --path="control/flux/clusters/${k8s_cluster}" \
+    --path="flux/clusters/${k8s_cluster}" \
     --token-auth \
     --personal \
     --author-email "$GITHUB_AUTHOR_EMAIL" \
