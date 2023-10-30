@@ -14,3 +14,12 @@ spec:
   - name: cert-manager
   path: k8s/infrastructure/cert-manager/dev
   prune: true
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/dataFrom/0/extract/key
+        value: digitalocean/clusters/doks-dev/cert-manager/dns-issuer-token
+    target:
+      kind: ExternalSecret
+      group: external-secrets.io
+      name: digitalocean-token

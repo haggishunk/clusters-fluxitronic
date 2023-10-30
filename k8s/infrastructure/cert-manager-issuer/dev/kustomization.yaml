@@ -4,5 +4,3 @@ kind: Kustomization
 namespace: default
 resources:
 - ../base
-patches:
-- path: patch-external-secret.yaml
