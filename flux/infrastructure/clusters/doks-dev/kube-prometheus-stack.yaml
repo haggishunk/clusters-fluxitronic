@@ -16,5 +16,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
   path: k8s/infrastructure/kube-prometheus-stack/dev
   prune: true
