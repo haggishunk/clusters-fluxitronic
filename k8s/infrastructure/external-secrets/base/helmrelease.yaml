@@ -23,10 +23,7 @@ spec:
     crds: CreateReplace
   # https://github.com/external-secrets/kubernetes-external-secrets/blob/master/charts/kubernetes-external-secrets/values.yaml
   values:
-    crds:
-      conversion:
-        enabled: false
-    installCRDs: true # required for crds
+    installCRDs: false # manual management
     securityContext:
       runAsNonRoot: true
     resources:
