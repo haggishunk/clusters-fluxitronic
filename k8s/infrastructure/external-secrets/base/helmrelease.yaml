@@ -52,6 +52,7 @@ spec:
             kind: Issuer
             name: external-secrets-ca
     certController:
+      create: false # using cert manager instead
       resources:
         limits:
           cpu: 50m
