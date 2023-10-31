@@ -20,4 +20,8 @@ spec:
       retries: 3
   upgrade:
     crds: CreateReplace
-  values: {}
+  values:
+    provider: digitalocean
+    digitalocean:
+      # must have `digitalocean_api_token` key
+      secretName: digitalocean-token

@@ -20,3 +20,12 @@ spec:
     namespace: flux-system
   path: k8s/infrastructure/external-dns/dev
   prune: true
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/dataFrom/0/extract/key
+        value: digitalocean/clusters/doks-dev/external-dns/token
+    target:
+      kind: ExternalSecret
+      group: external-secrets.io
+      name: digitalocean-token
