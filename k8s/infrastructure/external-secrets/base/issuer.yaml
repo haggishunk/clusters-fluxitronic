@@ -1,4 +1,5 @@
 ---
+# https://raw.githubusercontent.com/cert-manager/website/master/content/docs/tutorials/istio-csr/example/example-issuer.yaml
 # SelfSigned issuers are useful for creating root certificates
 apiVersion: cert-manager.io/v1
 kind: Issuer
