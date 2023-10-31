@@ -25,7 +25,7 @@ spec:
   values:
     crds:
       conversion:
-        enabled: true
+        enabled: false
     installCRDs: true # required for crds
     securityContext:
       runAsNonRoot: true
