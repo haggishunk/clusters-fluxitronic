@@ -15,12 +15,12 @@ spec:
       version: "0.9.5"
   interval: 1h0m0s
   install:
-    crds: Skip
+    crds: CreateReplace
     remediation:
       retries: 3
     timeout: 10m
-  # upgrade:
-  #   crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   # https://github.com/external-secrets/kubernetes-external-secrets/blob/master/charts/kubernetes-external-secrets/values.yaml
   values:
     installCRDs: true # required for crds
