@@ -22,6 +22,4 @@ spec:
         cpu: 500m
         memory: 512Mi
     admin:
-      existingSecret: grafana-admin-password
-    #   userKey: admin-user
-    #   passwordKey: admin-password
+      existingSecret: grafana-admin-credentials

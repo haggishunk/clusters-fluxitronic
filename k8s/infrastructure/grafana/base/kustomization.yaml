@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: default
 resources:
 - helmrelease.yaml
-- external-secret-password.yaml
+- external-secret-credentials.yaml
