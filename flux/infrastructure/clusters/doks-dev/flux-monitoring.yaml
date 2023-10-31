@@ -14,5 +14,5 @@ spec:
   dependsOn:
   - name: kube-prometheus-stack
     namespace: monitoring
-  path: monitoring/config
+  path: monitoring/configs
   prune: true
