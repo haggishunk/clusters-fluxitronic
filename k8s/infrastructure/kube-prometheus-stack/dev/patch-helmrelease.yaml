@@ -106,7 +106,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: standard
+              storageClassName: do-block-storage
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
@@ -171,7 +171,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: standard
+              storageClassName: do-block-storage
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
