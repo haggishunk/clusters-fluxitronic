@@ -5,6 +5,7 @@ metadata:
   name: loki
   namespace: monitoring
 spec:
+  targetNamespace: monitoring
   interval: 10m
   sourceRef:
     kind: GitRepository

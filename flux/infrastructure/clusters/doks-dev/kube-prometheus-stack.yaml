@@ -12,6 +12,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
+  targetNamespace: monitoring
   interval: 10m
   sourceRef:
     kind: GitRepository

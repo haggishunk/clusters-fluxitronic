@@ -12,6 +12,7 @@ metadata:
   name: external-dns
   namespace: external-dns
 spec:
+  targetNamespace: external-dns
   interval: 10m
   sourceRef:
     kind: GitRepository

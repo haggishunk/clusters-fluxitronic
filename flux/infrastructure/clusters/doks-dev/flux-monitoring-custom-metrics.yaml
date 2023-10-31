@@ -5,6 +5,7 @@ metadata:
   name: flux-monitoring-custom-metrics
   namespace: monitoring
 spec:
+  targetNamespace: monitoring
   interval: 30m
   timeout: 2m0s
   sourceRef:
