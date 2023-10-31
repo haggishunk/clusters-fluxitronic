@@ -88,21 +88,3 @@ spec:
     #     api_url: https://www.googleapis.com/oauth2/v1/userinfo
     #     allowed_domains: rollbar.com
     #     hosted_domain: rollbar.com
-    extraObjects:
-    - apiVersion: external-secrets.io/v1beta1
-      kind: ExternalSecret
-      metadata:
-        name: grafana-admin-credentials
-      spec:
-        dataFrom:
-        - extract:
-            key: o11y-grafana-admin-credentials
-            version: latest
-        refreshInterval: 1h
-        secretStoreRef:
-          kind: ClusterSecretStore
-          name: vault-mattera-io
-        target:
-          creationPolicy: Owner
-          deletionPolicy: Retain
-          name: grafana-admin-credentials
