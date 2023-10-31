@@ -1,0 +1,43 @@
+---
+# SelfSigned issuers are useful for creating root certificates
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned
+spec:
+  selfSigned: {}
+
+# Request a self-signed certificate from our Issuer; this will function as our
+# issuing root certificate when we pass it into a CA Issuer.
+---
+# It's generally fine to issue root certificates like this one with long lifespans;
+# the certificates which istio-csr issues will be much shorter lived.
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: external-secrets-ca
+spec:
+  isCA: true
+  duration: 87600h # 10 years
+  secretName: external-secrets-ca
+  commonName: external-secrets-ca
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  subject:
+    organizations:
+    - cluster.local
+    - cert-manager
+  issuerRef:
+    name: selfsigned
+    kind: Issuer
+    group: cert-manager.io
+---
+# Create a CA issuer using our root. This will be the Issuer which istio-csr will use.
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: external-secrets-ca
+spec:
+  ca:
+    secretName: external-secrets-ca

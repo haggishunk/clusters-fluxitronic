@@ -52,3 +52,9 @@ spec:
         requests:
           cpu: 10m
           memory: 128Mi
+    certManager:
+      enabled: true
+      issuerRef:
+        group: cert-manager.io
+        kind: Issuer
+        name: external-secrets-ca
