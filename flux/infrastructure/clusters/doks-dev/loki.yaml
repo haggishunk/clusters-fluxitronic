@@ -13,5 +13,6 @@ spec:
     namespace: flux-system
   dependsOn:
   - name: kube-prometheus-stack
+    namespace: monitoring
   path: k8s/infrastructure/loki/dev
   prune: true

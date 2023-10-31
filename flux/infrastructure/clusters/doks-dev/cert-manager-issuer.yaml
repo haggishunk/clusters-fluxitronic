@@ -13,6 +13,7 @@ spec:
     namespace: flux-system
   dependsOn:
   - name: cert-manager
+    namespace: cert-manager
   path: k8s/infrastructure/cert-manager-issuer/dev
   prune: true
   patches:
