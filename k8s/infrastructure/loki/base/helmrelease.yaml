@@ -29,5 +29,6 @@ spec:
     serviceMonitor:
       metricsInstance:
         enabled: false
-    selfMonitoring:
-      enabled: false
+    monitoring:
+      selfMonitoring:
+        enabled: false
