@@ -9,13 +9,12 @@ spec:
   - name: kube-prometheus-stack
   chart:
     spec:
-      chart: loki-stack
+      chart: loki
       sourceRef:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      # version: "v2.6.1"
-      version: ">=v2.0.0 <v3.0.0"
+      version: ">=5.0.0 <6.0.0"
   interval: 1h0m0s
   install:
     crds: Create
@@ -23,4 +22,12 @@ spec:
       retries: 3
   upgrade:
     crds: CreateReplace
-  values: {}
+  values:
+    tableManager:
+      retention_deletes_enabled: true
+      retention_period: 7d
+    serviceMonitor:
+      metricsInstance:
+        enabled: false
+    selfMonitoring:
+      enabled: false
