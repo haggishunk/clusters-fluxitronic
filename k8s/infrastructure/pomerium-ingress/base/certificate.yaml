@@ -20,7 +20,7 @@ spec:
   - server auth
   - client auth
   dnsNames:
-  - *.mattera.io
+  - "*.mattera.io"
   issuerRef:
     name: letsencrypt-acme-digitalocean
     kind: ClusterIssuer
