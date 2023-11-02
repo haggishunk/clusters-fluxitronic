@@ -14,14 +14,13 @@ spec:
   - repository:
       name: pomerium-ingress-controller
     fromPath: config/config
-    toPath: compose/mattera-io/config
+    toPath: config/mattera-io/config
   - repository:
       name: pomerium-ingress-controller
     fromPath: config/prometheus
-    toPath: compose/mattera-io/prometheus
+    toPath: config/mattera-io/prometheus
   ignore: |
     # exclude all
     /*
     # include manifests
     !/config
-    !/compose/mattera-io

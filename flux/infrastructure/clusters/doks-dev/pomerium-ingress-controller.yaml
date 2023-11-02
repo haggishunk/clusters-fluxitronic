@@ -16,7 +16,7 @@ spec:
     kind: GitRepository
     name: pomerium-ingress-controller
     namespace: flux-system
-  path: compose/mattera-io
+  path: config/mattera-io
   prune: true
   patches:
   - patch: |
