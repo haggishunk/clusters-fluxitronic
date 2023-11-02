@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pomerium-wildcard-tls
+  namespace: default
+spec:
+  secretName: pomerium-wildcard-tls
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizations:
+    - mattera.io
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  usages:
+  - server auth
+  - client auth
+  dnsNames:
+  - *.mattera.io
+  issuerRef:
+    name: letsencrypt-acme-digitalocean
+    kind: ClusterIssuer
