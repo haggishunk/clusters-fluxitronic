@@ -22,6 +22,13 @@ spec:
   prune: true
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: prometheus
+    grafana_datasource: "1"
+  name: prometheus-datasource
+  namespace: monitoring
 data:
   prometheus-datasource.yaml: |-
     apiVersion: 1
@@ -34,9 +41,3 @@ data:
       isDefault: false
       jsonData:
         {}
-kind: ConfigMap
-metadata:
-  labels:
-    app: prometheus
-    grafana_datasource: "1"
-  name: prometheus-datasource

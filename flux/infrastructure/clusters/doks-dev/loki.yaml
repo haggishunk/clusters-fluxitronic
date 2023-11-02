@@ -18,6 +18,13 @@ spec:
   prune: true
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: loki
+    grafana_datasource: "1"
+  name: loki-datasource
+  namespace: monitoring
 data:
   loki-datasource.yaml: |-
     apiVersion: 1
@@ -30,9 +37,3 @@ data:
       isDefault: false
       jsonData:
         {}
-kind: ConfigMap
-metadata:
-  labels:
-    app: loki
-    grafana_datasource: "1"
-  name: loki-datasource
