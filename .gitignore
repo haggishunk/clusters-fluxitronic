@@ -5,3 +5,6 @@
 *.crt
 *.key
 secrets/
+other/
+.tags
+tags
