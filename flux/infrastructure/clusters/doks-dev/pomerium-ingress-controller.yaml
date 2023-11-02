@@ -16,7 +16,16 @@ spec:
     kind: GitRepository
     name: pomerium-ingress-controller
     namespace: flux-system
-  path: config/default
+  path: compose/mattera-io
+  include:
+  - repository:
+      name: pomerium-ingress-controller
+    fromPath: config/config
+    toPath: compose/mattera-io/config
+  - repository:
+      name: pomerium-ingress-controller
+    fromPath: config/prometheus
+    toPath: compose/mattera-io/prometheus
   prune: true
   patches:
   - patch: |
