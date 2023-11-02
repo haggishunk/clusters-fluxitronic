@@ -6,17 +6,10 @@ metadata:
 spec:
   interval: 300m0s
   ref:
-    semver: ">=v0.23.0 <v0.24.0"
+    branch: prometheus-as-kustomize-component
   timeout: 60s
-  url: https://github.com/pomerium/ingress-controller.git
+  url: https://github.com/haggishunk/ingress-controller.git
   recurseSubmodules: false
-  include:
-  # this sets up prometheus to be a kustomize component
-  # since components need to be subdirectories
-  - repository:
-      name: flux-system
-    fromPath: k8s/infrastructure/pomerium-ingress/components/prometheus
-    toPath: config/components/prometheus
   ignore: |
     # exclude all
     /*
