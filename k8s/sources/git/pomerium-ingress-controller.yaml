@@ -13,8 +13,8 @@ spec:
   include:
   - repository:
       name: pomerium-ingress-controller
-    fromPath: config/config
-    toPath: config/mattera-io/config
+    fromPath: config/default
+    toPath: config/mattera-io/default
   - repository:
       name: pomerium-ingress-controller
     fromPath: config/prometheus
