@@ -24,21 +24,56 @@ spec:
     crds: CreateReplace
   values:
     tableManager:
+      enabled: true
       retention_deletes_enabled: true
       retention_period: 7d
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
     write:
       replicas: 1
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
     read:
       replicas: 1
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
     backend:
       replicas: 1
-    singleBinary:
-      replicas: 1
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
     gateway:
       replicas: 1
-    serviceMonitor:
-      metricsInstance:
-        enabled: false
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
     monitoring:
+      serviceMonitor:
+        enabled: true
+        metricsInstance:
+          enabled: false
       selfMonitoring:
         enabled: false
