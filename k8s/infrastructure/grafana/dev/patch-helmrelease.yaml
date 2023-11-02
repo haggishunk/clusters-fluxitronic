@@ -15,10 +15,10 @@ spec:
       requests:
         cpu: 500m
         memory: 512Mi
-    plugins:
-    - netsage-sankey-panel
-    - grafana-polystat-panel
-    - petrslavotinek-carpetplot-panel
+    # plugins:
+    # - netsage-sankey-panel
+    # - grafana-polystat-panel
+    # - petrslavotinek-carpetplot-panel
     sidecar:
       alerts:
         enabled: true
