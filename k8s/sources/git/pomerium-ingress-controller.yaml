@@ -16,7 +16,7 @@ spec:
   - repository:
       name: flux-system
     fromPath: k8s/infrastructure/pomerium-ingress/components/prometheus
-    toPath: config/prometheus
+    toPath: config/components/prometheus
   ignore: |
     # exclude all
     /*
