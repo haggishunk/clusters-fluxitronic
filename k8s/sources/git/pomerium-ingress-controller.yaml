@@ -10,6 +10,13 @@ spec:
   timeout: 60s
   url: https://github.com/pomerium/ingress-controller.git
   recurseSubmodules: false
+  include:
+  # this sets up prometheus to be a kustomize component
+  # since components need to be subdirectories
+  - repository:
+      name: pomerium-ingress-controller
+    fromPath: config/prometheus
+    toPath: config/default/prometheus
   ignore: |
     # exclude all
     /*
