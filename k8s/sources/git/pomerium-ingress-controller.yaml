@@ -10,8 +10,18 @@ spec:
   timeout: 60s
   url: https://github.com/pomerium/ingress-controller.git
   recurseSubmodules: false
+  include:
+  - repository:
+      name: pomerium-ingress-controller
+    fromPath: config/config
+    toPath: compose/mattera-io/config
+  - repository:
+      name: pomerium-ingress-controller
+    fromPath: config/prometheus
+    toPath: compose/mattera-io/prometheus
   ignore: |
     # exclude all
     /*
     # include manifests
     !/config
+    !/compose/mattera-io
