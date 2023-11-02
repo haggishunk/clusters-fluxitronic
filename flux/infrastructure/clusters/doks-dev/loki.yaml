@@ -16,3 +16,23 @@ spec:
     namespace: monitoring
   path: k8s/infrastructure/loki/dev
   prune: true
+---
+apiVersion: v1
+data:
+  loki-datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: "http://loki.monitoring:3100"
+      version: 1
+      isDefault: false
+      jsonData:
+        {}
+kind: ConfigMap
+metadata:
+  labels:
+    app: loki
+    grafana_datasource: "1"
+  name: loki-datasource
