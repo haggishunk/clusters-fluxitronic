@@ -1,13 +1,8 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: pomerium
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: pomerium-ingress-controller
+  name: pomerium-monitoring
   namespace: pomerium
 spec:
   targetNamespace: pomerium
@@ -16,5 +11,8 @@ spec:
     kind: GitRepository
     name: pomerium-ingress-controller
     namespace: flux-system
-  path: config/default
+  dependsOn:
+  - name: pomerium-ingress-controller
+    namespace: pomerium
+  path: config/prometheus
   prune: true
