@@ -11,10 +11,19 @@ spec:
   url: https://github.com/pomerium/ingress-controller.git
   recurseSubmodules: false
   include:
+  # this is effectively `default` + `prometheus`
   - repository:
       name: pomerium-ingress-controller
-    fromPath: config/default
-    toPath: config/mattera-io/default
+    fromPath: config/crd
+    toPath: config/mattera-io/crd
+  - repository:
+      name: pomerium-ingress-controller
+    fromPath: config/pomerium
+    toPath: config/mattera-io/pomerium
+  - repository:
+      name: pomerium-ingress-controller
+    fromPath: config/gen_secrets
+    toPath: config/mattera-io/gen_secrets
   - repository:
       name: pomerium-ingress-controller
     fromPath: config/prometheus
