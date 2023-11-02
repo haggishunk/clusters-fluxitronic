@@ -6,6 +6,6 @@ metadata:
 spec:
   interval: 300m0s
   ref:
-    tag: ">=v0.23.0 <v0.24.0"
+    semver: ">=v0.23.0 <v0.24.0"
   timeout: 60s
   url: https://github.com/pomerium/ingress-controller.git
