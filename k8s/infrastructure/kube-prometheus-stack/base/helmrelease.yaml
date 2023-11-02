@@ -26,24 +26,33 @@ spec:
     prometheusOperator:
       resources:
         limits:
-          memory: 100Mi
+          memory: 64Mi
         requests:
-          cpu: 100m
-          memory: 100Mi
+          cpu: 50m
+          memory: 64Mi
+    alertmanager:
+      alertmanagerSpec:
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 128Mi
     prometheus:
       prometheusSpec:
         retention: 1d
         resources:
           limits:
-            memory: 1Gi
+            memory: 512Gi
           requests:
-            cpu: 500m
-            memory: 256Mi
+            cpu: 250m
+            memory: 512Gi
         podMonitorSelectorNilUsesHelmValues: false
         podMonitorSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         ruleSelectorNilUsesHelmValues: false
+    # SUBCHART
     grafana:
       resources:
         limits:
