@@ -77,3 +77,5 @@ spec:
           enabled: false
       selfMonitoring:
         enabled: false
+        grafanaAgent:
+          installOperator: false
