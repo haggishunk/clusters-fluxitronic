@@ -9,3 +9,9 @@ spec:
     semver: ">=v0.23.0 <v0.24.0"
   timeout: 60s
   url: https://github.com/pomerium/ingress-controller.git
+  recurseSubmodules: false
+  ignore: |
+    # exclude all
+    /*
+    # include manifests
+    /config
