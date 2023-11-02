@@ -26,8 +26,12 @@ spec:
     toPath: config/mattera-io/gen_secrets
   - repository:
       name: pomerium-ingress-controller
+    fromPath: config/default
+    toPath: config/mattera-io/default
+  - repository:
+      name: pomerium-ingress-controller
     fromPath: config/prometheus
-    toPath: config/mattera-io/prometheus
+    toPath: config/mattera-io/default/prometheus
   ignore: |
     # exclude all
     /*

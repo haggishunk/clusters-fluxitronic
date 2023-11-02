@@ -16,12 +16,7 @@ spec:
     kind: GitRepository
     name: pomerium-ingress-controller
     namespace: flux-system
-  path: config/mattera-io
-  commonMetadata:
-    # required since we are composing our own package
-    # from the git source
-    labels:
-      app.kubernetes.io/name: pomerium
+  path: config/mattera-io/default
   prune: true
   patches:
   - patch: |
