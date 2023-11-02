@@ -18,3 +18,11 @@ spec:
     namespace: flux-system
   path: config/default
   prune: true
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/annotations/external-dns.alpha.kubernetes.io~1hostname
+        value: ingress.mattera.io
+    target:
+      kind: Service
+      name: pomerium-proxy
