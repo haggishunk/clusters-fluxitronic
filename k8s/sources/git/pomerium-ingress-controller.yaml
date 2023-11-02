@@ -14,9 +14,9 @@ spec:
   # this sets up prometheus to be a kustomize component
   # since components need to be subdirectories
   - repository:
-      name: pomerium-ingress-controller
-    fromPath: config/prometheus
-    toPath: config/default/prometheus
+      name: flux-system
+    fromPath: k8s/infrastructure/pomerium-ingress/components/prometheus
+    toPath: config/prometheus
   ignore: |
     # exclude all
     /*
