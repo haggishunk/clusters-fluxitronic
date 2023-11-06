@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: external-dns
+  labels:
+    mattera.io/clustersecretstore: "true"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: external-dns
+  namespace: external-dns
+spec:
+  targetNamespace: external-dns
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: k8s/infrastructure/external-dns/dev
+  prune: true
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/dataFrom/0/extract/key
+        value: digitalocean/clusters/doks-dev/external-dns/token
+    target:
+      kind: ExternalSecret
+      group: external-secrets.io
+      name: digitalocean-token

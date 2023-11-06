@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: flux-monitoring
+  namespace: monitoring
+spec:
+  targetNamespace: monitoring
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: fluxcd-flux2-monitoring-example
+    namespace: flux-system
+  dependsOn:
+  - name: kube-prometheus-stack
+    namespace: monitoring
+  path: monitoring/configs
+  prune: true

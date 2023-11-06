@@ -1,3 +1,6 @@
 kubectl 1.26.2
 kustomize 5.0.0
-flux2 0.40.2
+helm 3.11.2
+yq 4.32.2
+flux2 2.1.0
+yamlfmt 0.10.0

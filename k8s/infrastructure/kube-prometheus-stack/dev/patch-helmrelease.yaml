@@ -1,0 +1,233 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  values:
+    defaultRules:
+      # # DEPENDENCY .Release.Namespace
+      # appNamespacesTarget: mimir
+      # labels for filtering, silencing and notifying
+      additionalRuleLabels:
+        cluster: doks-dev
+        release: monitoring
+        role: infrastructure
+        source: kube-prometheus-stack
+    # use common labels to hook podmonitor, servicemonitors by label selectors
+    commonLabels:
+      mattera.io/grafana-agent: infrastructure
+      mattera.io/infra: monitoring
+    alertmanager:
+      config:
+        route:
+          group_by:
+          - namespace
+          routes:
+          - receiver: "null"
+            matchers:
+            - alertname=~"InfoInhibitor|Watchdog"
+            continue: false
+          - receiver: slack-nonprod-alerts
+            matchers:
+            - alertname=~".*"
+            continue: false
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+        inhibit_rules:
+        # critical shushes warning and info
+        - source_matchers:
+          - severity="critical"
+          target_matchers:
+          - severity=~"warning|info"
+          equal:
+          - namespace
+          - alertname
+        # warning shushes info
+        - source_matchers:
+          - severity="warning"
+          target_matchers:
+          - severity="info"
+          equal:
+          - namespace
+          - alertname
+        # shush info alerts if inhibited
+        - source_matchers:
+          - alertname="InfoInhibitor"
+          target_matchers:
+          - severity="info"
+          equal:
+          - namespace
+        receivers:
+        - name: "null"
+        - name: slack-nonprod-alerts
+          slack_configs:
+          - channel: nonprod-alerts
+            # mounted by Alertmanager.spec.secrets -- make sure to specify the file by the secret `.data` key
+            api_url_file: /etc/alertmanager/secrets/slack-api-url-nonprod-alerts/url
+            pretext: "Alertmanager: Watch Mimir"
+        templates:
+        - /etc/alertmanager/config/*.tmpl
+      # ingress:
+      #   enabled: true
+      #   annotations:
+      #     cert-manager.io/cluster-issuer: google-clouddns-issuer
+      #     kubernetes.io/ingress.allow-http: "false"
+      #     kubernetes.io/ingress.class: gce-internal
+      #   hosts:
+      #   - alertmanager.watch-mimir.rollbar.tools
+      #   paths:
+      #   - /*
+      #   pathType: ImplementationSpecific
+      #   tls:
+      #   - hosts:
+      #     - alertmanager.watch-mimir.rollbar.tools
+      #     secretName: watch-mimir-alertmanager-tls
+      # service:
+      #   annotations:
+      #     cloud.google.com/load-balancer-type: Internal
+      #     cloud.google.com/neg: '{"ingress": true}'
+      #   type: LoadBalancer
+      alertmanagerSpec:
+        # # DEPENDENCY ingress
+        # externalUrl: https://alertmanager.watch-mimir.rollbar.tools
+        # alertmanagerConfigNamespaceSelector: null
+        # replicas: 3
+        # secrets:
+        # # unlocked by external secret
+        # - slack-api-url-nonprod-alerts
+        # resources:
+        #   limits:
+        #     memory: 400Mi
+        #   requests:
+        #     cpu: 200m
+        #     memory: 400Mi
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: do-block-storage
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 10Gi
+    prometheusOperator:
+      namespaces:
+        releaseNamespace: true
+    prometheus:
+      # ingress:
+      #   enabled: true
+      #   annotations:
+      #     cert-manager.io/cluster-issuer: google-clouddns-issuer
+      #     kubernetes.io/ingress.allow-http: "false"
+      #     kubernetes.io/ingress.class: gce-internal
+      #   hosts:
+      #   - prometheus.watch-mimir.rollbar.tools
+      #   paths:
+      #   - /*
+      #   pathType: ImplementationSpecific
+      #   tls:
+      #   - hosts:
+      #     - prometheus.watch-mimir.rollbar.tools
+      #     secretName: watch-mimir-prometheus-tls
+      # service:
+      #   annotations:
+      #     cloud.google.com/load-balancer-type: Internal
+      #     cloud.google.com/neg: '{"ingress": true}'
+      #   type: LoadBalancer
+      prometheusSpec:
+        # # DEPENDENCY ingress
+        # externalUrl: https://prometheus.watch-mimir.rollbar.tools
+        # replicas: 3
+        # resources:
+        #   limits:
+        #     memory: 2Gi
+        #   requests:
+        #     cpu: 500m
+        #     memory: 1Gi
+        # retention: 1d
+        # operator CRD selection targets namespace of mimir
+        # DEPENDENCY .Release.Namespace
+        # podMonitorNamespaceSelector:
+        #   matchExpressions:
+        #   - key: mattera.io/infra
+        #     operator: In
+        #     values: ["mimir", "watch-mimir"]
+        # serviceMonitorNamespaceSelector:
+        #   matchExpressions:
+        #   - key: mattera.io/infra
+        #     operator: In
+        #     values: ["mimir", "watch-mimir"]
+        # probeNamespaceSelector:
+        #   matchExpressions:
+        #   - key: mattera.io/infra
+        #     operator: In
+        #     values: ["mimir", "watch-mimir"]
+        # ruleNamespaceSelector:
+        #   matchExpressions:
+        #   - key: mattera.io/infra
+        #     operator: In
+        #     values: ["mimir", "watch-mimir"]
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: do-block-storage
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 10Gi
+    ## these components are not available for scraping in gke
+    kubeApiServer:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    # SUBCHART
+    prometheus-node-exporter:
+      priorityClassName: system-cluster-critical
+      prometheus:
+        monitor:
+          enabled: true
+          additionalLabels:
+            mattera.io/infra: monitoring
+            mattera.io/grafana-agent: infrastructure
+          metricRelabelings:
+          - action: drop
+            regex: node_(arp.*|authorizer.*|cooling.*|nf.*|sockstat.*|softnet.*)
+            sourceLabels:
+            - __name__
+          - action: labeldrop
+            regex: mountpoint
+        podMonitor:
+          enabled: true
+          additionalLabels:
+            mattera.io/infra: monitoring
+            mattera.io/grafana-agent: infrastructure
+          metricRelabelings:
+          - action: drop
+            regex: node_(arp.*|authorizer.*|cooling.*|nf.*|sockstat.*|softnet.*)
+            sourceLabels:
+            - __name__
+          - action: labeldrop
+            regex: mountpoint
+    # SUBCHART
+    # These metrics are used for mimir metaMonitoring
+    kube-state-metrics:
+      prometheus:
+        monitor:
+          enabled: true
+          additionalLabels:
+            mattera.io/infra: monitoring
+            mattera.io/grafana-agent: infrastructure
+      selfMonitor:
+        enabled: true
+    # SUBCHART
+    grafana:
+      enabled: false
+      # these are very useful dashboards configured _for_ grafana _by_ the kube-prometheus-stack chart
+      forceDeployDashboards: true

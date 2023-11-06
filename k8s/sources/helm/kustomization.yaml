@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux-system
+resources:
+- bitnami.yaml
+- chartmuseum.yaml
+- datadog.yaml
+- external-secrets.yaml
+- grafana.yaml
+- ingress-nginx.yaml
+- istio.yaml
+- jetstack.yaml
+- keda.yaml
+- open-telemetry.yaml
+- prometheus-community.yaml

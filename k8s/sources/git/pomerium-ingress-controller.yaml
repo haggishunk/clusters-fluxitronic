@@ -1,0 +1,17 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: pomerium-ingress-controller
+spec:
+  interval: 300m0s
+  ref:
+    branch: prometheus-as-kustomize-component
+  timeout: 60s
+  url: https://github.com/haggishunk/ingress-controller.git
+  recurseSubmodules: false
+  ignore: |
+    # exclude all
+    /*
+    # include manifests
+    !/config

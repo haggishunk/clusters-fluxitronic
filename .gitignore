@@ -1,6 +1,10 @@
 .envrc
 .env
+.env.*
 *.pem
 *.crt
 *.key
 secrets/
+other/
+.tags
+tags

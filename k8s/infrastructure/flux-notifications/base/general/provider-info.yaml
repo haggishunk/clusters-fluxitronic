@@ -1,0 +1,9 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Provider
+metadata:
+  name: info
+spec:
+  type: slack
+  secretRef:
+    name: flux-provider-secret

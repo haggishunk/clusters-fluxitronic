@@ -1,0 +1,16 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: fluxcd-flux2-monitoring-example
+spec:
+  interval: 300m0s
+  ref:
+    branch: main
+  timeout: 60s
+  url: https://github.com/fluxcd/flux2-monitoring-example.git
+  ignore: |
+    # exclude all
+    /*
+    # include manifests
+    !/monitoring

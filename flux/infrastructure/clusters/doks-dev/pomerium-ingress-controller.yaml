@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pomerium
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: pomerium-ingress-controller
+  namespace: pomerium
+spec:
+  targetNamespace: pomerium
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: pomerium-ingress-controller
+    namespace: flux-system
+  path: config/default
+  components:
+  - ../components/prometheus
+  prune: true
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/annotations/external-dns.alpha.kubernetes.io~1hostname
+        value: ingress.mattera.io
+    target:
+      kind: Service
+      name: pomerium-proxy

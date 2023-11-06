@@ -1,0 +1,16 @@
+nameReference:
+  - kind: Provider
+    group: notification.toolkit.fluxcd.io
+    fieldSpecs:
+      - kind: Alert
+        group: notification.toolkit.fluxcd.io
+        path: spec/providerRef/name
+  - kind: ExternalSecret
+    group: external-secrets.io
+    fieldSpecs:
+      - kind: ExternalSecret
+        group: external-secrets.io
+        path: spec/dataFrom/extract/key
+      - kind: Provider
+        group: notification.toolkit.fluxcd.io
+        path: spec/secretRef/name

@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux-system
+namePrefix: gorgeous-
+resources:
+- ../../../../base/flux-notifications/github-production-releases
+patches:
+- patch: |
+    - op: replace
+      path: /spec/address
+      value: https://github.com/haggishunk/test-github-actions-flux
+  target:
+    kind: Provider
+- patch: |
+    - op: add
+      path: /spec/eventMetadata/cluster
+      value: gorgeous
+      create: true
+  target:
+    group: notification.toolkit.fluxcd.io
+    kind: Alert

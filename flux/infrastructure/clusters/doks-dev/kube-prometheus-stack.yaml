@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    mattera.io/clustersecretstore: "true"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  targetNamespace: monitoring
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: k8s/infrastructure/kube-prometheus-stack/dev
+  prune: true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: prometheus
+    grafana_datasource: "1"
+  name: prometheus-datasource
+  namespace: monitoring
+data:
+  prometheus-datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      access: proxy
+      url: "http://kube-prometheus-stack-prometheus.monitoring:9090"
+      version: 1
+      isDefault: false
+      jsonData:
+        {}
