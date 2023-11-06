@@ -137,46 +137,46 @@ spec:
       #     cloud.google.com/neg: '{"ingress": true}'
       #   type: LoadBalancer
       prometheusSpec:
-        # # DEPENDENCY ingress
-        # externalUrl: https://prometheus.watch-mimir.rollbar.tools
-        # replicas: 3
-        # resources:
-        #   limits:
-        #     memory: 2Gi
-        #   requests:
-        #     cpu: 500m
-        #     memory: 1Gi
-        # retention: 1d
-        # operator CRD selection targets namespace of mimir
-        # DEPENDENCY .Release.Namespace
-        # podMonitorNamespaceSelector:
-        #   matchExpressions:
-        #   - key: mattera.io/infra
-        #     operator: In
-        #     values: ["mimir", "watch-mimir"]
-        # serviceMonitorNamespaceSelector:
-        #   matchExpressions:
-        #   - key: mattera.io/infra
-        #     operator: In
-        #     values: ["mimir", "watch-mimir"]
-        # probeNamespaceSelector:
-        #   matchExpressions:
-        #   - key: mattera.io/infra
-        #     operator: In
-        #     values: ["mimir", "watch-mimir"]
-        # ruleNamespaceSelector:
-        #   matchExpressions:
-        #   - key: mattera.io/infra
-        #     operator: In
-        #     values: ["mimir", "watch-mimir"]
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: do-block-storage
-              accessModes: ["ReadWriteOnce"]
-              resources:
-                requests:
-                  storage: 10Gi
+      # # DEPENDENCY ingress
+      # externalUrl: https://prometheus.watch-mimir.rollbar.tools
+      # replicas: 3
+      # resources:
+      #   limits:
+      #     memory: 2Gi
+      #   requests:
+      #     cpu: 500m
+      #     memory: 1Gi
+      # retention: 1d
+      # operator CRD selection targets namespace of mimir
+      # DEPENDENCY .Release.Namespace
+      # podMonitorNamespaceSelector:
+      #   matchExpressions:
+      #   - key: mattera.io/infra
+      #     operator: In
+      #     values: ["mimir", "watch-mimir"]
+      # serviceMonitorNamespaceSelector:
+      #   matchExpressions:
+      #   - key: mattera.io/infra
+      #     operator: In
+      #     values: ["mimir", "watch-mimir"]
+      # probeNamespaceSelector:
+      #   matchExpressions:
+      #   - key: mattera.io/infra
+      #     operator: In
+      #     values: ["mimir", "watch-mimir"]
+      # ruleNamespaceSelector:
+      #   matchExpressions:
+      #   - key: mattera.io/infra
+      #     operator: In
+      #     values: ["mimir", "watch-mimir"]
+      # storageSpec:
+      #   volumeClaimTemplate:
+      #     spec:
+      #       storageClassName: do-block-storage
+      #       accessModes: ["ReadWriteOnce"]
+      #       resources:
+      #         requests:
+      #           storage: 10Gi
     ## these components are not available for scraping in gke
     kubeApiServer:
       enabled: false
