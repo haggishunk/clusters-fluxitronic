@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
+    namespace: flux-system-dev
   dependsOn:
   - name: kube-prometheus-stack
     namespace: monitoring
