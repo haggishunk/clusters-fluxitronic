@@ -8,6 +8,6 @@ spec:
   interval: 10m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux-system-dev
   path: flux/infrastructure/clusters/doks-dev
   prune: true

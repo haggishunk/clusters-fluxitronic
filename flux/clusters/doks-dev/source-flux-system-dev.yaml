@@ -1,0 +1,13 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: flux-system-dev
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: tune-cluster
+  secretRef:
+    name: flux-system
+  url: https://github.com/haggishunk/clusters-fluxitronic.git
