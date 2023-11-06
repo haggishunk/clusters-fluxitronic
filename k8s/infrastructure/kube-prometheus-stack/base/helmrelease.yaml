@@ -26,10 +26,10 @@ spec:
     prometheusOperator:
       resources:
         limits:
-          memory: 64Mi
+          memory: 128Mi
         requests:
           cpu: 50m
-          memory: 64Mi
+          memory: 128Mi
     alertmanager:
       alertmanagerSpec:
       resources:
