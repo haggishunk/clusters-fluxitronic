@@ -43,7 +43,7 @@ spec:
         retention: 1d
         resources:
           limits:
-            memory: 256Mi
+            memory: 512Mi
           requests:
             cpu: 100m
             memory: 256Mi
