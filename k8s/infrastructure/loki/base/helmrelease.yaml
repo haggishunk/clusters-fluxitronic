@@ -23,6 +23,26 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    loki:
+      # https://github.com/grafana/loki/blob/main/cmd/loki/loki-local-config.yaml
+      commonConfig:
+        replication_factor: 1
+        ring:
+          kvstore:
+            store: inmemory
+      commonStorageConfig:
+        filesystem:
+          chunks_directory: /tmp/loki/chunks
+          rules_directory: /tmp/loki/rules
+      schemaConfig:
+        configs:
+        - from: 2020-10-24
+          store: tsdb
+          object_store: filesystem
+          schema: v12
+          index:
+            prefix: index_
+            period: 24h
     write:
       replicas: 1
       resources:
