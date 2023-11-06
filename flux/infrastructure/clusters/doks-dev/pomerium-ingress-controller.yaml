@@ -24,7 +24,7 @@ spec:
   - patch: |
       - op: add
         path: /metadata/annotations/external-dns.alpha.kubernetes.io~1hostname
-        value: ingress.mattera.io
+        value: authenticate.mattera.io
     target:
       kind: Service
       name: pomerium-proxy
