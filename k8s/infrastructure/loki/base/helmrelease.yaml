@@ -76,6 +76,6 @@ spec:
         metricsInstance:
           enabled: false
       selfMonitoring:
-        enabled: false
+        enabled: true
         grafanaAgent:
           installOperator: false
