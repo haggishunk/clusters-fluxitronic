@@ -10,3 +10,6 @@ spec:
     url: https://authenticate.pomerium.app
   certificates:
   - pomerium/pomerium-wildcard-tls
+  identityProvider:
+    provider: github
+    secret: pomerium/github-oauth-credentials-prometheus

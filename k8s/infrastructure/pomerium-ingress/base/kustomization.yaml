@@ -5,3 +5,4 @@ namespace: default
 resources:
 - certificate.yaml
 - pomerium-ingress.yaml
+- external-secret-github-prometheus.yaml
