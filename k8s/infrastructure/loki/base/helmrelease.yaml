@@ -70,12 +70,16 @@ spec:
         requests:
           cpu: 50m
           memory: 64Mi
+    test:
+      enabled: false
     monitoring:
       serviceMonitor:
         enabled: true
         metricsInstance:
           enabled: false
       selfMonitoring:
-        enabled: true
+        enabled: false
         grafanaAgent:
           installOperator: false
+      lokiCanary:
+        enabled: false
