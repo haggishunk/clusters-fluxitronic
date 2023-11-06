@@ -115,21 +115,22 @@ spec:
       namespaces:
         releaseNamespace: true
     prometheus:
-      # ingress:
-      #   enabled: true
-      #   annotations:
-      #     cert-manager.io/cluster-issuer: google-clouddns-issuer
-      #     kubernetes.io/ingress.allow-http: "false"
-      #     kubernetes.io/ingress.class: gce-internal
-      #   hosts:
-      #   - prometheus.watch-mimir.rollbar.tools
-      #   paths:
-      #   - /*
-      #   pathType: ImplementationSpecific
-      #   tls:
-      #   - hosts:
-      #     - prometheus.watch-mimir.rollbar.tools
-      #     secretName: watch-mimir-prometheus-tls
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-acme-digitalocean
+          ingress.pomerium.io/allow_any_authenticated_user: 'true'
+          ingress.pomerium.io/pass_identity_headers: 'true'
+          kubernetes.io/ingress.class: pomerium
+        hosts:
+        - prometheus.mattera.io
+        paths:
+        - /*
+        pathType: ImplementationSpecific
+        tls:
+        - hosts:
+          - prometheus.mattera.io
+          secretName: prometheus-tls
       # service:
       #   annotations:
       #     cloud.google.com/load-balancer-type: Internal

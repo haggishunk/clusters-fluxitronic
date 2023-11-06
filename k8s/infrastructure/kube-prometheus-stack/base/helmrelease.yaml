@@ -34,19 +34,19 @@ spec:
       alertmanagerSpec:
       resources:
         limits:
-          memory: 128Mi
+          memory: 64Mi
         requests:
           cpu: 50m
-          memory: 128Mi
+          memory: 64Mi
     prometheus:
       prometheusSpec:
         retention: 1d
         resources:
           limits:
-            memory: 512Gi
+            memory: 256Mi
           requests:
-            cpu: 250m
-            memory: 512Gi
+            cpu: 100m
+            memory: 256Mi
         podMonitorSelectorNilUsesHelmValues: false
         podMonitorSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false
