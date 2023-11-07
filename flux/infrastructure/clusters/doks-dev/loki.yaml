@@ -9,7 +9,7 @@ spec:
   interval: 10m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux-system-dev
     namespace: flux-system
   dependsOn:
   - name: kube-prometheus-stack

@@ -2,9 +2,9 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: kube-state-metrics
+  name: kube-state-metrics-flux
 spec:
-  releaseName: kube-state-metrics
+  releaseName: kube-state-metrics-flux
   chart:
     spec:
       chart: kube-state-metrics

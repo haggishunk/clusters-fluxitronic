@@ -69,40 +69,27 @@ spec:
             pretext: "Alertmanager: Watch Mimir"
         templates:
         - /etc/alertmanager/config/*.tmpl
-      # ingress:
-      #   enabled: true
-      #   annotations:
-      #     cert-manager.io/cluster-issuer: google-clouddns-issuer
-      #     kubernetes.io/ingress.allow-http: "false"
-      #     kubernetes.io/ingress.class: gce-internal
-      #   hosts:
-      #   - alertmanager.watch-mimir.rollbar.tools
-      #   paths:
-      #   - /*
-      #   pathType: ImplementationSpecific
-      #   tls:
-      #   - hosts:
-      #     - alertmanager.watch-mimir.rollbar.tools
-      #     secretName: watch-mimir-alertmanager-tls
-      # service:
-      #   annotations:
-      #     cloud.google.com/load-balancer-type: Internal
-      #     cloud.google.com/neg: '{"ingress": true}'
-      #   type: LoadBalancer
+      ingress:
+        enabled: true
+        annotations:
+          ingress.pomerium.io/policy: |
+            allow:
+              and:
+                - user:
+                    is: haggishunk
+          ingress.pomerium.io/pass_identity_headers: 'true'
+          kubernetes.io/ingress.class: pomerium
+        hosts:
+        - alertmanager.mattera.io
+        paths:
+        - /
+        pathType: Prefix
       alertmanagerSpec:
-        # # DEPENDENCY ingress
-        # externalUrl: https://alertmanager.watch-mimir.rollbar.tools
-        # alertmanagerConfigNamespaceSelector: null
-        # replicas: 3
+        # DEPENDENCY ingress
+        externalUrl: https://alertmanager.mattera.io
         # secrets:
         # # unlocked by external secret
         # - slack-api-url-nonprod-alerts
-        # resources:
-        #   limits:
-        #     memory: 400Mi
-        #   requests:
-        #     cpu: 200m
-        #     memory: 400Mi
         storage:
           volumeClaimTemplate:
             spec:
@@ -115,59 +102,39 @@ spec:
       namespaces:
         releaseNamespace: true
     prometheus:
-      # ingress:
-      #   enabled: true
-      #   annotations:
-      #     cert-manager.io/cluster-issuer: google-clouddns-issuer
-      #     kubernetes.io/ingress.allow-http: "false"
-      #     kubernetes.io/ingress.class: gce-internal
-      #   hosts:
-      #   - prometheus.watch-mimir.rollbar.tools
-      #   paths:
-      #   - /*
-      #   pathType: ImplementationSpecific
-      #   tls:
-      #   - hosts:
-      #     - prometheus.watch-mimir.rollbar.tools
-      #     secretName: watch-mimir-prometheus-tls
-      # service:
-      #   annotations:
-      #     cloud.google.com/load-balancer-type: Internal
-      #     cloud.google.com/neg: '{"ingress": true}'
-      #   type: LoadBalancer
+      ingress:
+        enabled: true
+        annotations:
+          ingress.pomerium.io/policy: |
+            allow:
+              and:
+                - user:
+                    is: haggishunk
+          ingress.pomerium.io/pass_identity_headers: 'true'
+          kubernetes.io/ingress.class: pomerium
+        hosts:
+        - prometheus.mattera.io
+        paths:
+        - /
+        pathType: Prefix
       prometheusSpec:
-        # # DEPENDENCY ingress
-        # externalUrl: https://prometheus.watch-mimir.rollbar.tools
-        # replicas: 3
-        # resources:
-        #   limits:
-        #     memory: 2Gi
-        #   requests:
-        #     cpu: 500m
-        #     memory: 1Gi
-        # retention: 1d
+        # DEPENDENCY ingress
+        externalUrl: https://prometheus.mattera.io
+        retention: 7d
         # operator CRD selection targets namespace of mimir
         # DEPENDENCY .Release.Namespace
-        # podMonitorNamespaceSelector:
-        #   matchExpressions:
-        #   - key: mattera.io/infra
-        #     operator: In
-        #     values: ["mimir", "watch-mimir"]
-        # serviceMonitorNamespaceSelector:
-        #   matchExpressions:
-        #   - key: mattera.io/infra
-        #     operator: In
-        #     values: ["mimir", "watch-mimir"]
-        # probeNamespaceSelector:
-        #   matchExpressions:
-        #   - key: mattera.io/infra
-        #     operator: In
-        #     values: ["mimir", "watch-mimir"]
-        # ruleNamespaceSelector:
-        #   matchExpressions:
-        #   - key: mattera.io/infra
-        #     operator: In
-        #     values: ["mimir", "watch-mimir"]
+        podMonitorNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        serviceMonitorNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        probeNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        ruleNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
         storageSpec:
           volumeClaimTemplate:
             spec:

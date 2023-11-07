@@ -23,26 +23,40 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    tableManager:
-      enabled: true
-      retention_deletes_enabled: true
-      retention_period: 7d
-      resources:
-        limits:
-          cpu: 100m
-          memory: 128Mi
-        requests:
-          cpu: 50m
-          memory: 64Mi
+    loki:
+      # https://github.com/grafana/loki/blob/main/cmd/loki/loki-local-config.yaml
+      commonConfig:
+        replication_factor: 1
+        ring:
+          kvstore:
+            store: inmemory
+      commonStorageConfig:
+        filesystem:
+          chunks_directory: /data/chunks
+          rules_directory: /data/rules
+      schemaConfig:
+        configs:
+        - from: 2020-10-24
+          store: tsdb
+          object_store: filesystem
+          schema: v12
+          index:
+            prefix: index_
+            period: 24h
+      limits_config:
+        retention_period: 744h
+      compactor:
+        working_directory: /data/retention
+        retention_enabled: true
     write:
       replicas: 1
       resources:
         limits:
           cpu: 100m
-          memory: 128Mi
+          memory: 256Mi
         requests:
           cpu: 50m
-          memory: 64Mi
+          memory: 256Mi
     read:
       replicas: 1
       resources:
@@ -70,6 +84,8 @@ spec:
         requests:
           cpu: 50m
           memory: 64Mi
+    test:
+      enabled: false
     monitoring:
       serviceMonitor:
         enabled: true
@@ -79,3 +95,5 @@ spec:
         enabled: false
         grafanaAgent:
           installOperator: false
+      lokiCanary:
+        enabled: false

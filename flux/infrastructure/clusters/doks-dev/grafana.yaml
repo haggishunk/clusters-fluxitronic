@@ -5,6 +5,7 @@ metadata:
   name: grafana
   labels:
     mattera.io/clustersecretstore: "true"
+    mattera.io/monitor: "true"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -16,7 +17,7 @@ spec:
   interval: 10m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux-system-dev
     namespace: flux-system
   path: k8s/infrastructure/grafana/dev
   prune: true
