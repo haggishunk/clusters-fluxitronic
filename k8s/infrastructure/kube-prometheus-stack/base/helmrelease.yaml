@@ -21,6 +21,14 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    defaultRules:
+      # labels for filtering, silencing and notifying
+      additionalRuleLabels:
+        release: monitoring
+        role: infrastructure
+        source: kube-prometheus-stack
+    commonLabels:
+      mattera.io/monitor: "true"
     prometheusOperator:
       resources:
         limits:
@@ -44,20 +52,28 @@ spec:
           requests:
             cpu: 400m
             memory: 512Mi
-        podMonitorSelectorNilUsesHelmValues: false
         podMonitorNamespaceSelector:
           matchLabels:
             mattera.io/monitor: "true"
-        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
         serviceMonitorNamespaceSelector:
           matchLabels:
             mattera.io/monitor: "true"
-        probeSelectorNilUsesHelmValues: false
+        serviceMonitorSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
         probeNamespaceSelector:
           matchLabels:
             mattera.io/monitor: "true"
-        ruleSelectorNilUsesHelmValues: false
+        probeSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
         ruleNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        ruleSelector:
           matchLabels:
             mattera.io/monitor: "true"
     ## these components are not as useful for managed k8s
@@ -71,6 +87,42 @@ spec:
       enabled: false
     kubeScheduler:
       enabled: false
+    # SUBCHART
+    prometheus-node-exporter:
+      priorityClassName: system-cluster-critical
+      prometheus:
+        monitor:
+          enabled: true
+          additionalLabels:
+            mattera.io/monitor: "true"
+          metricRelabelings:
+          - action: drop
+            regex: node_(arp.*|authorizer.*|cooling.*|nf.*|sockstat.*|softnet.*)
+            sourceLabels:
+            - __name__
+          - action: labeldrop
+            regex: mountpoint
+        podMonitor:
+          enabled: true
+          additionalLabels:
+            mattera.io/monitor: "true"
+          metricRelabelings:
+          - action: drop
+            regex: node_(arp.*|authorizer.*|cooling.*|nf.*|sockstat.*|softnet.*)
+            sourceLabels:
+            - __name__
+          - action: labeldrop
+            regex: mountpoint
+    # SUBCHART
+    # These metrics are used for mimir metaMonitoring
+    kube-state-metrics:
+      prometheus:
+        monitor:
+          enabled: true
+          additionalLabels:
+            mattera.io/monitoring: "true"
+      selfMonitor:
+        enabled: true
     # SUBCHART
     grafana:
       resources:

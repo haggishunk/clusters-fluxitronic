@@ -276,3 +276,5 @@ customResourceState:
 prometheus:
   monitor:
     enabled: true
+    additionalLabels:
+      mattera.io/monitor: "true"

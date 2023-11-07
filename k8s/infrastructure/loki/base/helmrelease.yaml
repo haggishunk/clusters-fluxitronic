@@ -73,10 +73,18 @@ spec:
     test:
       enabled: false
     monitoring:
+      rules:
+        labels:
+          mattera.io/monitor: "true"
       serviceMonitor:
         enabled: true
+        labels:
+          mattera.io/monitor: "true"
         metricsInstance:
           enabled: false
+      podLogs:
+        labels:
+          mattera.io/monitor: "true"
       selfMonitoring:
         enabled: false
         grafanaAgent:

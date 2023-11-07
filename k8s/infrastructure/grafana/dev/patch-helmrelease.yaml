@@ -52,40 +52,19 @@ spec:
     serviceMonitor:
       enabled: true
       labels:
-        mattera.io/grafana-agent: infrastructure
+        mattera.io/monitoring: "true"
     persistence:
       enabled: true
       existingClaim: grafana-storage # hooks pod volumes to `storage` pvc created by sts volumeClaimTemplates
     useStatefulSet: true # make sure to use existingClaim matching hard-coded name `storage`
-    # envFromSecret: grafana-oauth-credentials
-    # admin:
-    #   existingSecret: grafana-admin-credentials
-    # grafana.ini:
-    #   server:
-    #     domain: mattera.io
-    #     root_url: https://grafana.mattera.io/
-    #   users:
-    #     allow_sign_up: False
-    #     viewers_can_edit: False
-    #     editors_can_admin: False
-    #   auth:
-    #     disable_login_form: True # set to false to allow admin password login
-    #     disable_signout_menu: True # set to false to allow admin password login
-    #     oauth_skip_org_role_sync_update: True
-    #   auth.google:
-    #     # Manage this here:
-    #     # https://console.cloud.google.com/apis/credentials/oauthclient/634705066910-90ascstg0b23vdlklkihmfp1dvsfvf6h.apps.googleusercontent.com?project=rollbar-global&supportedpurview=project
-    #     # Configure reference
-    #     # https://developers.google.com/identity/protocols/oauth2/web-server#creatingclient
-    #     enabled: true
-    #     auto_login: True # set to false to allow admin password login
-    #     skip_org_role_sync: True # google oauth does not support org roles via oidc jmespath
-    #     client_id: $__env{GOOGLE_OAUTH_CLIENT_ID}
-    #     client_secret: $__env{GOOGLE_OAUTH_CLIENT_SECRET}
-    #     scopes: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
-    #     login_hint: sub
-    #     auth_url: https://accounts.google.com/o/oauth2/auth
-    #     token_url: https://accounts.google.com/o/oauth2/token
-    #     api_url: https://www.googleapis.com/oauth2/v1/userinfo
-    #     allowed_domains: rollbar.com
-    #     hosted_domain: rollbar.com
+    grafana.ini:
+      server:
+        domain: mattera.io
+        root_url: https://grafana.mattera.io/
+      users:
+        allow_sign_up: True
+        viewers_can_edit: False
+        editors_can_admin: False
+      auth:
+        disable_login_form: False
+        disable_signout_menu: False

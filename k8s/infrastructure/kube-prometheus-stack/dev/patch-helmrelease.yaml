@@ -6,16 +6,8 @@ metadata:
 spec:
   values:
     defaultRules:
-      # labels for filtering, silencing and notifying
       additionalRuleLabels:
         cluster: doks-dev
-        release: monitoring
-        role: infrastructure
-        source: kube-prometheus-stack
-    # use common labels to hook podmonitor, servicemonitors by label selectors
-    commonLabels:
-      mattera.io/grafana-agent: infrastructure
-      mattera.io/infra: monitoring
     alertmanager:
       config:
         route:
@@ -129,45 +121,6 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
-    # SUBCHART
-    prometheus-node-exporter:
-      priorityClassName: system-cluster-critical
-      prometheus:
-        monitor:
-          enabled: true
-          additionalLabels:
-            mattera.io/infra: monitoring
-            mattera.io/grafana-agent: infrastructure
-          metricRelabelings:
-          - action: drop
-            regex: node_(arp.*|authorizer.*|cooling.*|nf.*|sockstat.*|softnet.*)
-            sourceLabels:
-            - __name__
-          - action: labeldrop
-            regex: mountpoint
-        podMonitor:
-          enabled: true
-          additionalLabels:
-            mattera.io/infra: monitoring
-            mattera.io/grafana-agent: infrastructure
-          metricRelabelings:
-          - action: drop
-            regex: node_(arp.*|authorizer.*|cooling.*|nf.*|sockstat.*|softnet.*)
-            sourceLabels:
-            - __name__
-          - action: labeldrop
-            regex: mountpoint
-    # SUBCHART
-    # These metrics are used for mimir metaMonitoring
-    kube-state-metrics:
-      prometheus:
-        monitor:
-          enabled: true
-          additionalLabels:
-            mattera.io/infra: monitoring
-            mattera.io/grafana-agent: infrastructure
-      selfMonitor:
-        enabled: true
     # SUBCHART
     grafana:
       enabled: false
