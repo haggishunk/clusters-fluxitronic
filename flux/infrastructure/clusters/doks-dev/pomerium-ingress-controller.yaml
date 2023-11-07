@@ -26,8 +26,17 @@ spec:
   patches:
   - patch: |
       - op: add
+        path: /metadata/annotations/service.beta.kubernetes.io~1do-loadbalancer-protocol
+        value: "http"
+      - op: add
+        path: /metadata/annotations/service.beta.kubernetes.io~1do-loadbalancer-tls-ports
+        value: "443"
+      - op: add
+        path: /metadata/annotations/service.beta.kubernetes.io~1do-loadbalancer-redirect-http-to-https
+        value: "true"
+      - op: add
         path: /metadata/annotations/external-dns.alpha.kubernetes.io~1hostname
-        value: authenticate.mattera.io
+        value: "authenticate.mattera.io"
     target:
       kind: Service
       name: pomerium-proxy
