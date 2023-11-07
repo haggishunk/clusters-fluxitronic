@@ -35,19 +35,20 @@ spec:
       notifiers:
         enabled: true
         searchNamespace: ALL
-    # service:
-    #   annotations:
-    #     cloud.google.com/neg: '{"ingress": true}'
-    # ingress:
-    #   enabled: true
-    #   annotations:
-    #     kubernetes.io/ingress.class: gce
-    #     networking.gke.io/managed-certificates: grafana
-    #     networking.gke.io/v1beta1.FrontendConfig: grafana
-    #   hosts:
-    #   - grafana.rollbar.tools
-    #   path: /*
-    #   pathType: ImplementationSpecific
+    ingress:
+      enabled: true
+      annotations:
+        ingress.pomerium.io/policy: |
+          allow:
+            and:
+              - user:
+                  is: haggishunk
+        ingress.pomerium.io/pass_identity_headers: 'true'
+        kubernetes.io/ingress.class: pomerium
+      hosts:
+      - grafana.mattera.io
+      path: /
+      pathType: Prefix
     serviceMonitor:
       enabled: true
       labels:
