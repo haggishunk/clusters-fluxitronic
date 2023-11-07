@@ -17,6 +17,9 @@ spec:
   path: k8s/infrastructure/loki/dev
   prune: true
 ---
+# datasource configuration located here
+# because it is namespace-specific
+# namespace is set at this location
 apiVersion: v1
 kind: ConfigMap
 metadata:
