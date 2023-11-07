@@ -7,7 +7,7 @@ metadata:
 spec:
   secrets: pomerium/bootstrap
   authenticate:
-    url: https://authenticate.pomerium.app
+    url: https://authenticate.mattera.io
   certificates:
   - pomerium/pomerium-wildcard-tls
   identityProvider:
