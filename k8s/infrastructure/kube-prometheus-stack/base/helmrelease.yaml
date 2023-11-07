@@ -21,8 +21,6 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    coreDns:
-      enabled: true
     prometheusOperator:
       resources:
         limits:
@@ -32,26 +30,20 @@ spec:
           memory: 128Mi
     alertmanager:
       alertmanagerSpec:
-      resources:
-        limits:
-          memory: 64Mi
-        requests:
-          cpu: 50m
-          memory: 64Mi
+        resources:
+          limits:
+            memory: 64Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
     prometheus:
       prometheusSpec:
-        retention: 1d
         resources:
           limits:
             memory: 512Mi
           requests:
             cpu: 400m
             memory: 512Mi
-        podMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelector: {}
-        serviceMonitorSelectorNilUsesHelmValues: false
-        serviceMonitorSelector: {}
-        ruleSelectorNilUsesHelmValues: false
     # SUBCHART
     grafana:
       resources:

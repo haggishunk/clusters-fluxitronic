@@ -87,17 +87,9 @@ spec:
       alertmanagerSpec:
         # DEPENDENCY ingress
         externalUrl: https://alertmanager.mattera.io
-        # alertmanagerConfigNamespaceSelector: null
-        # replicas: 3
         # secrets:
         # # unlocked by external secret
         # - slack-api-url-nonprod-alerts
-        # resources:
-        #   limits:
-        #     memory: 400Mi
-        #   requests:
-        #     cpu: 200m
-        #     memory: 400Mi
         storage:
           volumeClaimTemplate:
             spec:
@@ -113,7 +105,6 @@ spec:
       ingress:
         enabled: true
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-acme-digitalocean
           ingress.pomerium.io/policy: |
             allow:
               and:
@@ -126,51 +117,32 @@ spec:
         paths:
         - /
         pathType: Prefix
-        tls:
-        - hosts:
-          - prometheus.mattera.io
-          secretName: prometheus-tls
       prometheusSpec:
-      # DEPENDENCY ingress
-      externalUrl: https://prometheus.mattera.io
-      # replicas: 3
-      # resources:
-      #   limits:
-      #     memory: 2Gi
-      #   requests:
-      #     cpu: 500m
-      #     memory: 1Gi
-      # retention: 1d
-      # operator CRD selection targets namespace of mimir
-      # DEPENDENCY .Release.Namespace
-      # podMonitorNamespaceSelector:
-      #   matchExpressions:
-      #   - key: mattera.io/infra
-      #     operator: In
-      #     values: ["mimir", "watch-mimir"]
-      # serviceMonitorNamespaceSelector:
-      #   matchExpressions:
-      #   - key: mattera.io/infra
-      #     operator: In
-      #     values: ["mimir", "watch-mimir"]
-      # probeNamespaceSelector:
-      #   matchExpressions:
-      #   - key: mattera.io/infra
-      #     operator: In
-      #     values: ["mimir", "watch-mimir"]
-      # ruleNamespaceSelector:
-      #   matchExpressions:
-      #   - key: mattera.io/infra
-      #     operator: In
-      #     values: ["mimir", "watch-mimir"]
-      storageSpec:
-        volumeClaimTemplate:
-          spec:
-            storageClassName: do-block-storage
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              requests:
-                storage: 10Gi
+        # DEPENDENCY ingress
+        externalUrl: https://prometheus.mattera.io
+        retention: 7d
+        # operator CRD selection targets namespace of mimir
+        # DEPENDENCY .Release.Namespace
+        podMonitorNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        serviceMonitorNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        probeNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        ruleNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: do-block-storage
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 10Gi
     ## these components are not available for scraping in gke
     kubeApiServer:
       enabled: false
