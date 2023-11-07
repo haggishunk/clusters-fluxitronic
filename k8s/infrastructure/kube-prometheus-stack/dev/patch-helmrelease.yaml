@@ -76,7 +76,7 @@ spec:
             allow:
               and:
                 - user:
-                    is: travis@mattera.io
+                    is: haggishunk
           ingress.pomerium.io/pass_identity_headers: 'true'
           kubernetes.io/ingress.class: pomerium
         hosts:
@@ -118,7 +118,7 @@ spec:
             allow:
               and:
                 - user:
-                    is: travis@mattera.io
+                    is: haggishunk
           ingress.pomerium.io/pass_identity_headers: 'true'
           kubernetes.io/ingress.class: pomerium
         hosts:
