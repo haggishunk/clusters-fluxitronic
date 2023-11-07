@@ -27,22 +27,8 @@ spec:
       # https://github.com/grafana/loki/blob/main/cmd/loki/loki-local-config.yaml
       commonConfig:
         replication_factor: 1
-        ring:
-          kvstore:
-            store: inmemory
-      commonStorageConfig:
-        filesystem:
-          chunks_directory: /data/chunks
-          rules_directory: /data/rules
-      schemaConfig:
-        configs:
-        - from: 2020-10-24
-          store: tsdb
-          object_store: filesystem
-          schema: v12
-          index:
-            prefix: index_
-            period: 24h
+      storage:
+        type: filesystem
       limits_config:
         retention_period: 744h
       compactor:
