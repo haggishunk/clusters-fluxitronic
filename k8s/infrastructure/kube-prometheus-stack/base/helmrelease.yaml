@@ -44,6 +44,33 @@ spec:
           requests:
             cpu: 400m
             memory: 512Mi
+        podMonitorSelectorNilUsesHelmValues: false
+        podMonitorNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        serviceMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        probeSelectorNilUsesHelmValues: false
+        probeNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+        ruleSelectorNilUsesHelmValues: false
+        ruleNamespaceSelector:
+          matchLabels:
+            mattera.io/monitor: "true"
+    ## these components are not as useful for managed k8s
+    kubeApiServer:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeScheduler:
+      enabled: false
     # SUBCHART
     grafana:
       resources:

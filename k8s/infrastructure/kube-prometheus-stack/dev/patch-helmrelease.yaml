@@ -6,8 +6,6 @@ metadata:
 spec:
   values:
     defaultRules:
-      # # DEPENDENCY .Release.Namespace
-      # appNamespacesTarget: mimir
       # labels for filtering, silencing and notifying
       additionalRuleLabels:
         cluster: doks-dev
@@ -87,6 +85,7 @@ spec:
       alertmanagerSpec:
         # DEPENDENCY ingress
         externalUrl: https://alertmanager.mattera.io
+        # ^^^^^^^^^^^^^^^^^^
         # secrets:
         # # unlocked by external secret
         # - slack-api-url-nonprod-alerts
@@ -120,21 +119,8 @@ spec:
       prometheusSpec:
         # DEPENDENCY ingress
         externalUrl: https://prometheus.mattera.io
+        # ^^^^^^^^^^^^^^^^^^
         retention: 7d
-        # operator CRD selection targets namespace of mimir
-        # DEPENDENCY .Release.Namespace
-        podMonitorNamespaceSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
-        serviceMonitorNamespaceSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
-        probeNamespaceSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
-        ruleNamespaceSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
         storageSpec:
           volumeClaimTemplate:
             spec:
@@ -143,17 +129,6 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
-    ## these components are not available for scraping in gke
-    kubeApiServer:
-      enabled: false
-    kubeControllerManager:
-      enabled: false
-    kubeEtcd:
-      enabled: false
-    kubeProxy:
-      enabled: false
-    kubeScheduler:
-      enabled: false
     # SUBCHART
     prometheus-node-exporter:
       priorityClassName: system-cluster-critical
