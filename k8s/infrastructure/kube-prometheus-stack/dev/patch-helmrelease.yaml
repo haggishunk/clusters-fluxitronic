@@ -69,29 +69,24 @@ spec:
             pretext: "Alertmanager: Watch Mimir"
         templates:
         - /etc/alertmanager/config/*.tmpl
-      # ingress:
-      #   enabled: true
-      #   annotations:
-      #     cert-manager.io/cluster-issuer: google-clouddns-issuer
-      #     kubernetes.io/ingress.allow-http: "false"
-      #     kubernetes.io/ingress.class: gce-internal
-      #   hosts:
-      #   - alertmanager.watch-mimir.rollbar.tools
-      #   paths:
-      #   - /*
-      #   pathType: ImplementationSpecific
-      #   tls:
-      #   - hosts:
-      #     - alertmanager.watch-mimir.rollbar.tools
-      #     secretName: watch-mimir-alertmanager-tls
-      # service:
-      #   annotations:
-      #     cloud.google.com/load-balancer-type: Internal
-      #     cloud.google.com/neg: '{"ingress": true}'
-      #   type: LoadBalancer
+      ingress:
+        enabled: true
+        annotations:
+          ingress.pomerium.io/policy: |
+            allow:
+              and:
+                - user:
+                    is: travis@mattera.io
+          ingress.pomerium.io/pass_identity_headers: 'true'
+          kubernetes.io/ingress.class: pomerium
+        hosts:
+        - alertmanager.mattera.io
+        paths:
+        - /
+        pathType: Prefix
       alertmanagerSpec:
-        # # DEPENDENCY ingress
-        # externalUrl: https://alertmanager.watch-mimir.rollbar.tools
+        # DEPENDENCY ingress
+        externalUrl: https://alertmanager.mattera.io
         # alertmanagerConfigNamespaceSelector: null
         # replicas: 3
         # secrets:
@@ -119,7 +114,11 @@ spec:
         enabled: true
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-acme-digitalocean
-          ingress.pomerium.io/allow_any_authenticated_user: 'true'
+          ingress.pomerium.io/policy: |
+            allow:
+              and:
+                - user:
+                    is: travis@mattera.io
           ingress.pomerium.io/pass_identity_headers: 'true'
           kubernetes.io/ingress.class: pomerium
         hosts:
@@ -131,14 +130,9 @@ spec:
         - hosts:
           - prometheus.mattera.io
           secretName: prometheus-tls
-      # service:
-      #   annotations:
-      #     cloud.google.com/load-balancer-type: Internal
-      #     cloud.google.com/neg: '{"ingress": true}'
-      #   type: LoadBalancer
       prometheusSpec:
-      # # DEPENDENCY ingress
-      # externalUrl: https://prometheus.watch-mimir.rollbar.tools
+      # DEPENDENCY ingress
+      externalUrl: https://prometheus.mattera.io
       # replicas: 3
       # resources:
       #   limits:
@@ -169,14 +163,14 @@ spec:
       #   - key: mattera.io/infra
       #     operator: In
       #     values: ["mimir", "watch-mimir"]
-      # storageSpec:
-      #   volumeClaimTemplate:
-      #     spec:
-      #       storageClassName: do-block-storage
-      #       accessModes: ["ReadWriteOnce"]
-      #       resources:
-      #         requests:
-      #           storage: 10Gi
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: do-block-storage
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 10Gi
     ## these components are not available for scraping in gke
     kubeApiServer:
       enabled: false
