@@ -16,3 +16,10 @@ spec:
     namespace: monitoring
   path: monitoring/configs
   prune: true
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/labels/mattera.io~1monitor
+        value: "true"
+    target:
+      kind: PodMonitor

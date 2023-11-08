@@ -120,7 +120,7 @@ spec:
         monitor:
           enabled: true
           additionalLabels:
-            mattera.io/monitoring: "true"
+            mattera.io/monitor: "true"
       selfMonitor:
         enabled: true
     # SUBCHART
