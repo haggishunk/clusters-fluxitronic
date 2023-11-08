@@ -23,7 +23,7 @@ spec:
       limits:
         memory: 1Gi
       requests:
-        cpu: 500m
+        cpu: 1
         memory: 512Mi
     admin:
       existingSecret: grafana-admin-credentials
