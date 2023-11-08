@@ -46,3 +46,11 @@ spec:
         value: "true"
     target:
       kind: ServiceMonitor
+  - patch: |
+      $patch: delete
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: pomerium
+    target:
+      kind: Namespace
