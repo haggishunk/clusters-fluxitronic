@@ -32,7 +32,7 @@ spec:
       limits_config:
         retention_period: 744h
       compactor:
-        working_directory: /data/retention
+        working_directory: /tmp/loki/retention
         retention_enabled: true
     singleBinary:
       replicas: 1
