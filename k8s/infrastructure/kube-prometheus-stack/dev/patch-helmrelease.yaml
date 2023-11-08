@@ -89,9 +89,6 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
-    prometheusOperator:
-      namespaces:
-        releaseNamespace: true
     prometheus:
       ingress:
         enabled: true

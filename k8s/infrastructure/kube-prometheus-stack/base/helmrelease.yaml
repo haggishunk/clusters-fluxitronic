@@ -53,29 +53,25 @@ spec:
             cpu: 400m
             memory: 512Mi
         podMonitorNamespaceSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
-        podMonitorSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
+          matchExpressions:
+          - key: mattera.io/monitor
+            operator: Exists
+        podMonitorSelector: {}
         serviceMonitorNamespaceSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
-        serviceMonitorSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
+          matchExpressions:
+          - key: mattera.io/monitor
+            operator: Exists
+        serviceMonitorSelector: {}
         probeNamespaceSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
-        probeSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
+          matchExpressions:
+          - key: mattera.io/monitor
+            operator: Exists
+        probeSelector: {}
         ruleNamespaceSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
-        ruleSelector:
-          matchLabels:
-            mattera.io/monitor: "true"
+          matchExpressions:
+          - key: mattera.io/monitor
+            operator: Exists
+        ruleSelector: {}
     ## these components are not as useful for managed k8s
     kubeApiServer:
       enabled: false
