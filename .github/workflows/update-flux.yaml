@@ -22,6 +22,7 @@ jobs:
       id: update
       run: |
         flux install \
+          --components-extra "image-reflector-controller,image-automation-controller" \
           --export > ./flux/clusters/${{ matrix.cluster }}/flux-system/gotk-components.yaml
         VERSION="$(flux -v)"
         echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
