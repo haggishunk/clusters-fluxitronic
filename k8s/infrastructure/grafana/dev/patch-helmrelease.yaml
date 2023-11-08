@@ -52,7 +52,7 @@ spec:
     serviceMonitor:
       enabled: true
       labels:
-        mattera.io/monitoring: "true"
+        mattera.io/monitor: "true"
     persistence:
       enabled: true
       existingClaim: grafana-storage # hooks pod volumes to `storage` pvc created by sts volumeClaimTemplates
