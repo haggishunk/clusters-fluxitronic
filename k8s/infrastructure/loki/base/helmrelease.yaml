@@ -34,42 +34,14 @@ spec:
       compactor:
         working_directory: /data/retention
         retention_enabled: true
-    write:
-      replicas: 1
+    singleBinary:
+      replicas: v1
       resources:
         limits:
-          cpu: 100m
           memory: 256Mi
         requests:
-          cpu: 50m
           memory: 256Mi
-    read:
-      replicas: 1
-      resources:
-        limits:
-          cpu: 100m
-          memory: 128Mi
-        requests:
-          cpu: 50m
-          memory: 64Mi
-    backend:
-      replicas: 1
-      resources:
-        limits:
-          cpu: 100m
-          memory: 128Mi
-        requests:
-          cpu: 50m
-          memory: 64Mi
-    gateway:
-      replicas: 1
-      resources:
-        limits:
-          cpu: 100m
-          memory: 128Mi
-        requests:
-          cpu: 50m
-          memory: 64Mi
+          cpu: 200m
     test:
       enabled: false
     monitoring:
