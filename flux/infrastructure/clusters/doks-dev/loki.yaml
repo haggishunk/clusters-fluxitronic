@@ -1,0 +1,42 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: loki
+  namespace: monitoring
+spec:
+  targetNamespace: monitoring
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system-dev
+    namespace: flux-system
+  dependsOn:
+  - name: kube-prometheus-stack
+    namespace: monitoring
+  path: k8s/infrastructure/loki/dev
+  prune: true
+---
+# datasource configuration located here
+# because it is namespace-specific
+# namespace is set at this location
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: loki
+    grafana_datasource: "1"
+  name: loki-datasource
+  namespace: monitoring
+data:
+  loki-datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: "http://loki.monitoring:3100"
+      version: 1
+      isDefault: false
+      jsonData:
+        {}
