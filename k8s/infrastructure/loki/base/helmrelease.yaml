@@ -35,7 +35,7 @@ spec:
         working_directory: /data/retention
         retention_enabled: true
     singleBinary:
-      replicas: v1
+      replicas: 1
       resources:
         limits:
           memory: 256Mi
