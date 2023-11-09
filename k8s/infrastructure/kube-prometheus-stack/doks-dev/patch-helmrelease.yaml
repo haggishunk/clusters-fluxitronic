@@ -19,53 +19,53 @@ spec:
               storageClassName: do-block-storage
     alertmanager:
       serviceMonitor:
-        relabelings:
+        metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
     grafana:
       serviceMonitor:
-        relabelings:
+        metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
     kubelet:
       serviceMonitor:
-        relabelings:
+        metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
-        cAdvisorRelabelings:
+        cAdvisorMetricsRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
-        probesRelabelings:
+        probesMetricsRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
-        resourceRelabelings:
+        resourceMetricsRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
     coreDns:
       serviceMonitor:
-        relabelings:
+        metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
     kube-state-metrics:
       prometheus:
         monitor:
-          relabelings:
+          metricRelabelings:
           - targetLabel: cluster
             replacement: doks-dev
     prometheus-node-exporter:
       prometheus:
         monitor:
-          relabelings:
+          metricRelabelings:
           - targetLabel: cluster
             replacement: doks-dev
     prometheusOperator:
       serviceMonitor:
-        relabelings:
+        metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
     prometheus:
       serviceMonitor:
-        relabelings:
+        metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
       ingress:
