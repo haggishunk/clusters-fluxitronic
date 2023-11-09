@@ -5,9 +5,6 @@ metadata:
   name: kube-prometheus-stack
 spec:
   values:
-    defaultRules:
-      additionalRuleLabels:
-        cluster: doks-dev
     alertmanager:
       config:
         route:
@@ -70,13 +67,13 @@ spec:
           ingress.pomerium.io/pass_identity_headers: 'true'
           kubernetes.io/ingress.class: pomerium
         hosts:
-        - alertmanager.mattera.io
+        - alertmanager.example.com
         paths:
         - /
         pathType: Prefix
       alertmanagerSpec:
         # DEPENDENCY ingress
-        externalUrl: https://alertmanager.mattera.io
+        externalUrl: https://alertmanager.example.com
         # ^^^^^^^^^^^^^^^^^^
         # secrets:
         # # unlocked by external secret
@@ -84,7 +81,6 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: do-block-storage
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
@@ -101,21 +97,18 @@ spec:
           ingress.pomerium.io/pass_identity_headers: 'true'
           kubernetes.io/ingress.class: pomerium
         hosts:
-        - prometheus.mattera.io
+        - prometheus.example.com
         paths:
         - /
         pathType: Prefix
       prometheusSpec:
-        externalLabels:
-          cluster: doks-dev
         # DEPENDENCY ingress
-        externalUrl: https://prometheus.mattera.io
+        externalUrl: https://prometheus.example.com
         # ^^^^^^^^^^^^^^^^^^
         retention: 7d
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: do-block-storage
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:

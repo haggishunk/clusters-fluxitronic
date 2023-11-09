@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  values:
+    defaultRules:
+      additionalRuleLabels:
+        cluster: doks-dev
+      ingress:
+        hosts:
+        - alertmanager.mattera.io
+      alertmanagerSpec:
+        externalUrl: https://alertmanager.mattera.io
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: do-block-storage
+    alertmanager:
+      serviceMonitor:
+        relabelings:
+        - targetLabel: cluster
+          replacement: doks-dev
+    grafana:
+      serviceMonitor:
+        relabelings:
+        - targetLabel: cluster
+          replacement: doks-dev
+    kubelet:
+      serviceMonitor:
+        cAdvisorRelabelings:
+        - targetLabel: cluster
+          replacement: doks-dev
+    coreDns:
+      serviceMonitor:
+        relabelings:
+        - targetLabel: cluster
+          replacement: doks-dev
+    kube-state-metrics:
+      prometheus:
+        monitor:
+          relabelings:
+          - targetLabel: cluster
+            replacement: doks-dev
+    prometheus-node-exporter:
+      prometheus:
+        monitor:
+          relabelings:
+          - targetLabel: cluster
+            replacement: doks-dev
+    prometheusOperator:
+      serviceMonitor:
+        relabelings:
+        - targetLabel: cluster
+          replacement: doks-dev
+    prometheus:
+      serviceMonitor:
+        relabelings:
+        - targetLabel: cluster
+          replacement: doks-dev
+      ingress:
+        hosts:
+        - prometheus.mattera.io
+      prometheusSpec:
+        externalUrl: https://prometheus.mattera.io
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: do-block-storage

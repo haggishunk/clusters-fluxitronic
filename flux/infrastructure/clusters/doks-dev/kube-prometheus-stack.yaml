@@ -19,7 +19,7 @@ spec:
     kind: GitRepository
     name: flux-system-dev
     namespace: flux-system
-  path: k8s/infrastructure/kube-prometheus-stack/dev
+  path: k8s/infrastructure/kube-prometheus-stack/doks-dev
   prune: true
 ---
 apiVersion: v1

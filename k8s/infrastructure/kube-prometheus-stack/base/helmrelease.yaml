@@ -27,6 +27,17 @@ spec:
         release: monitoring
         role: infrastructure
         source: kube-prometheus-stack
+      rules:
+        etcd: false
+        kubeApiserverAvailability: false
+        kubeApiserverBurnrate: false
+        kubeApiserverHistogram: false
+        kubeApiserverSlos: false
+        kubeControllerManager: false
+        kubeProxy: false
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
+        windows: false
     commonLabels:
       mattera.io/monitor: "true"
     prometheusOperator:
@@ -83,6 +94,11 @@ spec:
       enabled: false
     kubeScheduler:
       enabled: false
+    # not running on macs
+    nodeExporter:
+      operatingSystems:
+        darwin:
+          enabled: false
     # SUBCHART
     prometheus-node-exporter:
       priorityClassName: system-cluster-critical
