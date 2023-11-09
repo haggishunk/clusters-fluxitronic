@@ -106,6 +106,8 @@ spec:
         - /
         pathType: Prefix
       prometheusSpec:
+        externalLabels:
+          cluster: doks-dev
         # DEPENDENCY ingress
         externalUrl: https://prometheus.mattera.io
         # ^^^^^^^^^^^^^^^^^^
