@@ -22,52 +22,63 @@ spec:
         metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
+          sourceLabels: [__name__]
     grafana:
       serviceMonitor:
         metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
+          sourceLabels: [__name__]
     kubelet:
       serviceMonitor:
         metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
+          sourceLabels: [__name__]
         cAdvisorMetricsRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
+          sourceLabels: [__name__]
         probesMetricsRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
+          sourceLabels: [__name__]
         resourceMetricsRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
+          sourceLabels: [__name__]
     coreDns:
       serviceMonitor:
         metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
+          sourceLabels: [__name__]
     kube-state-metrics:
       prometheus:
         monitor:
           metricRelabelings:
           - targetLabel: cluster
             replacement: doks-dev
+            sourceLabels: [__name__]
     prometheus-node-exporter:
       prometheus:
         monitor:
           metricRelabelings:
           - targetLabel: cluster
             replacement: doks-dev
+            sourceLabels: [__name__]
     prometheusOperator:
       serviceMonitor:
         metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
+          sourceLabels: [__name__]
     prometheus:
       serviceMonitor:
         metricRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
+          sourceLabels: [__name__]
       ingress:
         hosts:
         - prometheus.mattera.io
