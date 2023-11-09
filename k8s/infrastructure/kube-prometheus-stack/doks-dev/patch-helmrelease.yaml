@@ -29,7 +29,16 @@ spec:
           replacement: doks-dev
     kubelet:
       serviceMonitor:
+        relabelings:
+        - targetLabel: cluster
+          replacement: doks-dev
         cAdvisorRelabelings:
+        - targetLabel: cluster
+          replacement: doks-dev
+        probesRelabelings:
+        - targetLabel: cluster
+          replacement: doks-dev
+        resourceRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
     coreDns:
