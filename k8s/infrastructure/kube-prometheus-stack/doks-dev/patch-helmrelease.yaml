@@ -20,41 +20,41 @@ spec:
     # working
     alertmanager:
       serviceMonitor:
-        metricRelabelings:
+        relabelings:
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
     # not working
     grafana:
       serviceMonitor:
-        metricRelabelings:
+        relabelings:
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
     kubelet:
       serviceMonitor:
         # working @ /metrics
-        metricRelabelings:
+        relabelings:
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
         # not working @ /metrics/cadvisor
-        cAdvisorMetricsRelabelings:
+        cAdvisorRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
-        probesMetricsRelabelings:
+        probesRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
-        resourceMetricsRelabelings:
+        resourceRelabelings:
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
     # working
     coreDns:
       serviceMonitor:
-        metricRelabelings:
+        relabelings:
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
@@ -62,7 +62,7 @@ spec:
     kube-state-metrics:
       prometheus:
         monitor:
-          metricRelabelings:
+          relabelings:
           - targetLabel: cluster
             replacement: doks-dev
             sourceLabels: [__address__]
@@ -70,21 +70,21 @@ spec:
     prometheus-node-exporter:
       prometheus:
         monitor:
-          metricRelabelings:
+          relabelings:
           - targetLabel: cluster
             replacement: doks-dev
             sourceLabels: [__address__]
     # working
     prometheusOperator:
       serviceMonitor:
-        metricRelabelings:
+        relabelings:
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
     # working
     prometheus:
       serviceMonitor:
-        metricRelabelings:
+        relabelings:
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
