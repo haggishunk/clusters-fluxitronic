@@ -21,6 +21,11 @@ spec:
     alertmanager:
       serviceMonitor:
         relabelings:
+        # upstream
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        # custom
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
@@ -28,6 +33,11 @@ spec:
     grafana:
       serviceMonitor:
         relabelings:
+        # upstream
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        # custom
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
@@ -35,19 +45,39 @@ spec:
       serviceMonitor:
         # working @ /metrics
         relabelings:
+        # upstream
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        # custom
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
         # not working @ /metrics/cadvisor
         cAdvisorRelabelings:
+        # upstream
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        # custom
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
         probesRelabelings:
+        # upstream
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        # custom
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
         resourceRelabelings:
+        # upstream
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        # custom
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
@@ -55,6 +85,11 @@ spec:
     coreDns:
       serviceMonitor:
         relabelings:
+        # upstream
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        # custom
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
@@ -63,6 +98,11 @@ spec:
       prometheus:
         monitor:
           relabelings:
+          # upstream
+          - action: replace
+            sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
+          # custom
           - targetLabel: cluster
             replacement: doks-dev
             sourceLabels: [__address__]
@@ -71,6 +111,11 @@ spec:
       prometheus:
         monitor:
           relabelings:
+          # upstream
+          - action: replace
+            sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
+          # custom
           - targetLabel: cluster
             replacement: doks-dev
             sourceLabels: [__address__]
@@ -78,6 +123,11 @@ spec:
     prometheusOperator:
       serviceMonitor:
         relabelings:
+        # upstream
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        # custom
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
@@ -85,6 +135,11 @@ spec:
     prometheus:
       serviceMonitor:
         relabelings:
+        # upstream
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        # custom
         - targetLabel: cluster
           replacement: doks-dev
           sourceLabels: [__address__]
