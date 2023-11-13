@@ -1,0 +1,28 @@
+---
+apiVersion: monitoring.grafana.com/v1alpha1
+kind: PodLogs
+metadata:
+  name: grafana-agent
+  labels:
+    mattera.io/grafana-agent: log-infrastructure
+spec:
+  pipelineStages:
+  - cri: {}
+  relabelings:
+  - action: replace
+    replacement: $1
+    separator: /
+    sourceLabels:
+    - __meta_kubernetes_namespace
+    - __meta_kubernetes_pod_container_name
+    targetLabel: job
+  - action: replace
+    sourceLabels:
+    - __meta_kubernetes_pod_container_name
+    targetLabel: name
+  # - action: replace
+  #   replacement: mimir
+  #   targetLabel: cluster
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grafana-agent

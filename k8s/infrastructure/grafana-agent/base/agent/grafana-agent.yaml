@@ -1,0 +1,21 @@
+---
+apiVersion: monitoring.grafana.com/v1alpha1
+kind: GrafanaAgent
+metadata:
+  name: grafana-agent
+  namespace: default
+  labels:
+    app: grafana-agent
+spec:
+  image: grafana/agent:v0.32.0
+  version: v0.32.1
+  logLevel: info
+  serviceAccountName: grafana-agent
+  metrics:
+    # select all metrics instances in same ns
+    instanceSelector: {}
+    externalLabels:
+      cluster: cloud  # change me for the cluster i'm deployed into
+  logs:
+    # select all logs instances in same ns
+    instanceSelector: {}

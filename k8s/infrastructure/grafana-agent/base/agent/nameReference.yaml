@@ -1,0 +1,5 @@
+nameReference:
+  - kind: ServiceAccount
+    fieldSpecs:
+      - kind: GrafanaAgent
+        path: spec/serviceAccountName
