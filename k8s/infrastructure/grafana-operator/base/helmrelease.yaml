@@ -22,6 +22,6 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    nodeSelector: {}
-    tolerations: []
-    resources: {}
+    kubeletService:
+      namespace: kube-system
+      serviceName: grafana-agent-operator-kubelet
