@@ -1,0 +1,8 @@
+---
+commonLabels:
+- path: spec/metrics/instanceSelector/matchLabels
+  create: true
+  kind: GrafanaAgent
+- path: spec/podMetadata/labels
+  create: true
+  kind: GrafanaAgent

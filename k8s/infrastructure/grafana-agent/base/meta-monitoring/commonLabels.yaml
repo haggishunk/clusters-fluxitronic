@@ -1,0 +1,14 @@
+---
+commonLabels:
+- path: spec/selector/matchLabels
+  create: true
+  kind: PodLogs
+- path: spec/selector/matchLabels
+  create: true
+  kind: ServiceMonitor
+- path: spec/selector/matchLabels
+  create: true
+  kind: PodMonitor
+- path: spec/selector/matchLabels
+  create: true
+  kind: Probe
