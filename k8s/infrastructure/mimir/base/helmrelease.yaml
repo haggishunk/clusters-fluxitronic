@@ -115,20 +115,20 @@ spec:
         size: 10Gi
       resources:
         limits:
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 200m
-          memory: 256Mi
+          memory: 128Mi
       priorityClassName: system-cluster-critical
 
     distributor:
       replicas:
       resources:
         limits:
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 200m
-          memory: 256Mi
+          memory: 128Mi
       priorityClassName: system-cluster-critical
 
     ingester:
@@ -137,10 +137,10 @@ spec:
       replicas: 1
       resources:
         limits:
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 200m
-          memory: 256Mi
+          memory: 128Mi
       topologySpreadConstraints:
         maxSkew: 1
         topologyKey: kubernetes.io/hostname
@@ -208,10 +208,10 @@ spec:
       replicas: 1
       resources:
         limits:
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 200m
-          memory: 256Mi
+          memory: 128Mi
       priorityClassName: system-cluster-critical
 
     query_scheduler:
@@ -221,10 +221,10 @@ spec:
       replicas: 1
       resources:
         limits:
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 200m
-          memory: 256Mi
+          memory: 128Mi
       priorityClassName: system-cluster-critical
 
     ruler:
@@ -246,10 +246,10 @@ spec:
       replicas: 1
       resources:
         limits:
-          memory: 256Mi
+          memory: 128Mi
         requests:
           cpu: 200m
-          memory: 256Mi
+          memory: 128Mi
       extraEnvFrom:
       - secretRef:
           name: s3-bucket-credentials
