@@ -16,15 +16,15 @@ spec:
 
   # Supply an empty namespace selector to look in all namespaces. Remove
   # this to only look in the same namespace as the MetricsInstance CR
-  # serviceMonitorNamespaceSelector: {}
+  serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
 
   # Supply an empty namespace selector to look in all namespaces. Remove
   # this to only look in the same namespace as the MetricsInstance CR.
-  # podMonitorNamespaceSelector: {}
+  podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
 
   # Supply an empty namespace selector to look in all namespaces. Remove
   # this to only look in the same namespace as the MetricsInstance CR.
-  # probeNamespaceSelector: {}
+  probeNamespaceSelector: {}
   probeSelector: {}
