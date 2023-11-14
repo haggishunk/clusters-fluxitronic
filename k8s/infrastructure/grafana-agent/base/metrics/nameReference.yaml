@@ -1,6 +1,7 @@
+---
 nameReference:
-  - kind: Secret
-    version: v1
-    fieldSpecs:
-      - kind: MetricsInstance
-        path: spec/additionalScrapeConfigs/name
+- kind: Secret
+  version: v1
+  fieldSpecs:
+  - kind: MetricsInstance
+    path: spec/additionalScrapeConfigs/name

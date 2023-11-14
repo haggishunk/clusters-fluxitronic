@@ -10,9 +10,7 @@ metadata:
 spec:
   jobLabel: app.kubernetes.io/name
   podMetricsEndpoints:
-  - enableHttp2: false
-    filterRunning: true
-    followRedirects: false
+  - followRedirects: false
     honorLabels: true
     honorTimestamps: true
     metricRelabelings: []
