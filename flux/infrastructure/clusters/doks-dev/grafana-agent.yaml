@@ -77,7 +77,7 @@ spec:
         value:
           cluster: doks-dev
       - op: replace
-        path: /spec/metrics/remoteWrite/0/headers/X-Scope-OrgId
+        path: /spec/metrics/remoteWrite/0/headers/X-Scope-OrgID
         value: mattera-io
     target:
       kind: GrafanaAgent

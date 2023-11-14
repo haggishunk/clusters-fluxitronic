@@ -19,7 +19,7 @@ spec:
     remoteWrite:
     - url: http://mimir-nginx/api/v1/push
       headers:
-        X-Scope-OrgId: anonymous
+        X-Scope-OrgID: anonymous
   serviceAccountName: grafana-agent
   resources:
     requests: {}
