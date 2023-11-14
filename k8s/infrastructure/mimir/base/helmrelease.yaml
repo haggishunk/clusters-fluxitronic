@@ -25,6 +25,7 @@ spec:
     mimir:
       # https://github.com/grafana/mimir/blob/71b5cf53a059744d34014b5a455b9ebb3fd6a6a2/docs/sources/mimir/configure/configure-object-storage-backend.md
       structuredConfig:
+        log_level: debug
         blocks_storage:
           backend: s3
           s3:
@@ -112,7 +113,7 @@ spec:
       statefulSet:
         enabled: true
       extraArgs:
-      - "-config.expand-env=true"
+        config.expand-env: true
       extraEnvFrom:
       - secretRef:
           name: s3-bucket-credentials
@@ -128,7 +129,7 @@ spec:
           cpu: 200m
           memory: 128Mi
       extraArgs:
-      - "-config.expand-env=true"
+        config.expand-env: true
       extraEnvFrom:
       - secretRef:
           name: s3-bucket-credentials
@@ -225,6 +226,11 @@ spec:
         requests:
           cpu: 200m
           memory: 128Mi
+      extraArgs:
+        config.expand-env: true
+      extraEnvFrom:
+      - secretRef:
+          name: s3-bucket-credentials
       priorityClassName: system-cluster-critical
 
     query_scheduler:
@@ -249,7 +255,7 @@ spec:
           cpu: 50m
           memory: 64Mi
       extraArgs:
-      - "-config.expand-env=true"
+        config.expand-env: true
       extraEnvFrom:
       - secretRef:
           name: s3-bucket-credentials
@@ -266,7 +272,7 @@ spec:
           cpu: 200m
           memory: 128Mi
       extraArgs:
-      - "-config.expand-env=true"
+        config.expand-env: true
       extraEnvFrom:
       - secretRef:
           name: s3-bucket-credentials
