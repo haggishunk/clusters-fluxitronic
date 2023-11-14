@@ -20,6 +20,7 @@ spec:
     name: pomerium-ingress-controller
     namespace: flux-system
   path: config/default
+  # metrics only under enterprise
   components:
   - ../components/prometheus
   prune: true
@@ -40,12 +41,6 @@ spec:
     target:
       kind: Service
       name: pomerium-proxy
-  - patch: |
-      - op: add
-        path: /metadata/labels/mattera.io~1monitor
-        value: "true"
-    target:
-      kind: ServiceMonitor
   - patch: |
       $patch: delete
       apiVersion: v1
