@@ -8,7 +8,7 @@ spec:
   releaseName: mimir
   chart:
     spec:
-      chart: mimir
+      chart: mimir-distributed
       sourceRef:
         kind: HelmRepository
         name: grafana
