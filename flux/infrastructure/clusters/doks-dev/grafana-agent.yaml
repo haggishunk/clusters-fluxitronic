@@ -31,17 +31,15 @@ spec:
   # labels and tenant
   - patch: |
       - op: add
-        path: /spec/metrics/externalLabels
-        create: true
+        path: /spec/clients/0/externalLabels
         value:
           cluster: doks-dev
       - op: add
-        path: /spec/metrics/remoteWrite/headers
-        create: true
+        path: /spec/clients/0/headers
         value:
           X-Scope-OrgId: mattera-io
     target:
-      kind: GrafanaAgent
+      kind: LogsInstance
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -76,14 +74,12 @@ spec:
   # labels and tenant
   - patch: |
       - op: add
-        path: /spec/metrics/externalLabels
-        create: true
+        path: /spec/externalLabels
         value:
           cluster: doks-dev
       - op: add
-        path: /spec/metrics/remoteWrite/headers
-        create: true
+        path: /spec/remoteWrite/0/headers
         value:
           X-Scope-OrgId: mattera-io
     target:
-      kind: GrafanaAgent
+      kind: MetricsInstance
