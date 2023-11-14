@@ -1,0 +1,56 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: grafana-agent-logs
+  namespace: monitoring
+spec:
+  targetNamespace: monitoring
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system-dev
+    namespace: flux-system
+  path: k8s/infrastructure/grafana-agent/logs-only
+  prune: true
+  patches:
+  - patch: |
+      - op: replace
+        path: spec/resources
+        create: true
+        value:
+          limits:
+            memory: 64Mi
+          requests:
+            memory: 64Mi
+            cpu: 50m
+    target:
+      kind: GrafanaAgent
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: grafana-agent-metrics
+  namespace: monitoring
+spec:
+  targetNamespace: monitoring
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system-dev
+    namespace: flux-system
+  path: k8s/infrastructure/grafana-agent/metrics-only
+  prune: true
+  patches:
+  - patch: |
+      - op: replace
+        path: spec/resources
+        create: true
+        value:
+          limits:
+            memory: 64Mi
+          requests:
+            memory: 64Mi
+            cpu: 50m
+    target:
+      kind: GrafanaAgent
