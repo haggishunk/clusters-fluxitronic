@@ -25,31 +25,30 @@ spec:
     mimir:
       # https://github.com/grafana/mimir/blob/71b5cf53a059744d34014b5a455b9ebb3fd6a6a2/docs/sources/mimir/configure/configure-object-storage-backend.md
       structuredConfig:
-        log_level: debug
         blocks_storage:
           backend: s3
           s3:
             endpoint: sfo3.digitaloceanspaces.com
             bucket_name: mattera-io-mimir-blocks
             insecure: false
-            access_key_id: $AWS_ACCESS_KEY_ID
-            secret_access_key: $AWS_SECRET_ACCESS_KEY
+            access_key_id: ${AWS_ACCESS_KEY_ID}
+            secret_access_key: ${AWS_SECRET_ACCESS_KEY}
         alertmanager_storage:
           backend: s3
           s3:
             endpoint: sfo3.digitaloceanspaces.com
             bucket_name: mattera-io-mimir-alertmanager
             insecure: false
-            access_key_id: $AWS_ACCESS_KEY_ID
-            secret_access_key: $AWS_SECRET_ACCESS_KEY
+            access_key_id: ${AWS_ACCESS_KEY_ID}
+            secret_access_key: ${AWS_SECRET_ACCESS_KEY}
         ruler_storage:
           backend: s3
           s3:
             endpoint: sfo3.digitaloceanspaces.com
             bucket_name: mattera-io-mimir-ruler
             insecure: false
-            access_key_id: $AWS_ACCESS_KEY_ID
-            secret_access_key: $AWS_SECRET_ACCESS_KEY
+            access_key_id: ${AWS_ACCESS_KEY_ID}
+            secret_access_key: ${AWS_SECRET_ACCESS_KEY}
         # allow queries to span tenant data
         tenant_federation:
           enabled: true
