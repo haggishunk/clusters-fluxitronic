@@ -25,6 +25,15 @@ spec:
     mimir:
       # https://github.com/grafana/mimir/blob/71b5cf53a059744d34014b5a455b9ebb3fd6a6a2/docs/sources/mimir/configure/configure-object-storage-backend.md
       structuredConfig:
+        common:
+          storage:
+            backend: s3
+            s3:
+              endpoint: sfo3.digitaloceanspaces.com
+              bucket_name: mattera-io-mimir-blocks
+              insecure: false
+              access_key_id: ${AWS_ACCESS_KEY_ID}
+              secret_access_key: ${AWS_SECRET_ACCESS_KEY}
         blocks_storage:
           backend: s3
           s3:
@@ -147,7 +156,7 @@ spec:
 
     ingester:
       persistentVolume:
-        size: 50Gi
+        size: 10Gi
       replicas: 1
       resources:
         limits:
@@ -155,6 +164,12 @@ spec:
         requests:
           cpu: 200m
           memory: 128Mi
+      extraArgs:
+        config.expand-env: true
+        log.level: debug
+      extraEnvFrom:
+      - secretRef:
+          name: s3-bucket-credentials
       topologySpreadConstraints:
         maxSkew: 1
         topologyKey: kubernetes.io/hostname
