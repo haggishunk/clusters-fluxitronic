@@ -68,7 +68,7 @@ spec:
           # default is 30
           max_label_names_per_series: 40
           # this can be parcelled by tenant
-          max_global_series_per_user: 20000
+          max_global_series_per_user: 200000
           # retention can be overrided per tenant in runtime config
           compactor_blocks_retention_period: 4320h
           # # shuffle sharding
