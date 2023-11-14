@@ -159,10 +159,10 @@ spec:
       replicas: 1
       resources:
         limits:
-          memory: 368Mi
+          memory: 512Mi
         requests:
-          cpu: 200m
-          memory: 368Mi
+          cpu: 300m
+          memory: 512Mi
       extraArgs:
         config.expand-env: true
       extraEnvFrom:
