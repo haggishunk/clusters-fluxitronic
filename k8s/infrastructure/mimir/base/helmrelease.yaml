@@ -138,7 +138,6 @@ spec:
           memory: 128Mi
       extraArgs:
         config.expand-env: true
-        log.level: debug
       extraEnvFrom:
       - secretRef:
           name: s3-bucket-credentials
@@ -166,7 +165,6 @@ spec:
           memory: 368Mi
       extraArgs:
         config.expand-env: true
-        log.level: debug
       extraEnvFrom:
       - secretRef:
           name: s3-bucket-credentials
