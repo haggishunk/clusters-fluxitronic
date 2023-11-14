@@ -8,13 +8,8 @@ metadata:
     app.kubernetes.io/name: grafana-agent-instance
     app.kubernetes.io/part-of: grafana-agent
 spec:
-  externalLabels: {}
   minWALTime: 5m
   maxWALTime: 60m
-
-  remoteWrite:
-  - url: http://mimir-nginx/api/v1/push
-    headers: {}
 
   # Supply an empty namespace selector to look in all namespaces. Remove
   # this to only look in the same namespace as the MetricsInstance CR
