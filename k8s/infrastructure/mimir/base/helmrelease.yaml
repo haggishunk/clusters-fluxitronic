@@ -1,0 +1,350 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mimir
+spec:
+  releaseName: mimir
+  chart:
+    spec:
+      chart: mimir
+      sourceRef:
+        kind: HelmRepository
+        name: mimir-distributed
+        namespace: flux-system
+      version: "4.4.0-weekly.232"
+  interval: 1h0m0s
+  install:
+    crds: Create
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+  values:
+    mimir:
+      # https://github.com/grafana/mimir/blob/71b5cf53a059744d34014b5a455b9ebb3fd6a6a2/docs/sources/mimir/configure/configure-object-storage-backend.md
+      structuredConfig:
+        blocks_storage:
+          backend: s3
+          s3:
+            endpoint: sfo3.digitaloceanspaces.com
+            bucket_name: mattera-io-mimir-blocks
+            insecure: false
+        alertmanager_storage:
+          backend: s3
+          s3:
+            endpoint: sfo3.digitaloceanspaces.com
+            bucket_name: mattera-io-mimir-alertmanager
+            insecure: false
+        ruler_storage:
+          backend: s3
+          s3:
+            endpoint: sfo3.digitaloceanspaces.com
+            bucket_name: mattera-io-mimir-ruler
+            insecure: false
+        # allow queries to span tenant data
+        tenant_federation:
+          enabled: true
+        # tune limits for ingestion
+        limits:
+          # default is 500 days  -- align this with retention
+          max_total_query_length: 2160h
+          # default is 30
+          max_label_names_per_series: 40
+          # this can be parcelled by tenant
+          max_global_series_per_user: 20000
+          # retention can be overrided per tenant in runtime config
+          compactor_blocks_retention_period: 4320h
+          # # shuffle sharding
+          # ingestion_tenant_shard_size: 15
+          # ruler_tenant_shard_size: 2
+          # store_gateway_tenant_shard_size: 2
+          # compactor_tenant_shard_size: 2
+          # max_queriers_per_tenant: 2
+          # accept_ha_samples: true
+          ruler_max_rules_per_rule_group: 100
+          ruler_max_rule_groups_per_tenant: 500
+        alertmanager:
+          external_url: https://mimir.mattera.io/alertmanager
+        querier:
+          shuffle_sharding_ingesters_enabled: false
+          query_store_after: 12h
+          query_ingesters_within: 16h
+        frontend:
+          querier_forget_delay: 1m
+        query_scheduler:
+          querier_forget_delay: 1m
+        ruler:
+          external_url: http://mimir.mattera.io
+
+    # https://grafana.com/docs/mimir/latest/configure/about-runtime-configuration/
+    runtimeConfig:
+      overrides:
+        infrastructure:
+          ingestion_rate: 50000
+          max_global_series_per_user: 800000
+        apps:
+          ingestion_rate: 30000
+          max_global_series_per_user: 150000
+          ruler_max_rules_per_rule_group: 200 # the pipeline rules group is very large
+      ingester_limits:
+        max_tenants: 5
+        max_inflight_push_requests: 3000
+
+    # from small values https://github.com/grafana/mimir/blob/main/operations/helm/charts/mimir-distributed/values.yaml
+    alertmanager:
+      persistentVolume:
+        enabled: true
+      replicas: 1
+      resources:
+        limits:
+          memory: 64Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
+      statefulSet:
+        enabled: true
+      extraEnvFrom:
+      - secretRef:
+          name: s3-bucket-credentials
+      priorityClassName: system-cluster-critical
+
+    compactor:
+      persistentVolume:
+        size: 10Gi
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      priorityClassName: system-cluster-critical
+
+    distributor:
+      replicas:
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      priorityClassName: system-cluster-critical
+
+    ingester:
+      persistentVolume:
+        size: 50Gi
+      replicas: 1
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      topologySpreadConstraints:
+        maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: target # support for enterprise.legacyLabels
+                operator: In
+                values:
+                - ingester
+            topologyKey: 'kubernetes.io/hostname'
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - ingester
+            topologyKey: 'kubernetes.io/hostname'
+      # nodeSelector unsupported with zoneAwareReplication enabled
+      zoneAwareReplication:
+        topologyKey: 'kubernetes.io/hostname'
+      priorityClassName: system-cluster-critical
+
+    admin-cache:
+      enabled: true
+      replicas: 1
+      priorityClassName: system-cluster-critical
+
+    chunks-cache:
+      enabled: true
+      replicas: 1
+      priorityClassName: system-cluster-critical
+
+    index-cache:
+      enabled: true
+      replicas: 1
+      priorityClassName: system-cluster-critical
+
+    metadata-cache:
+      enabled: true
+      priorityClassName: system-cluster-critical
+
+    results-cache:
+      enabled: true
+      replicas: 1
+      priorityClassName: system-cluster-critical
+
+    minio:
+      enabled: false
+
+    overrides_exporter:
+      replicas: 1
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      priorityClassName: system-cluster-critical
+
+    querier:
+      replicas: 1
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      priorityClassName: system-cluster-critical
+
+    query_scheduler:
+      priorityClassName: system-cluster-critical
+
+    query_frontend:
+      replicas: 1
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      priorityClassName: system-cluster-critical
+
+    ruler:
+      replicas: 1
+      resources:
+        limits:
+          memory: 64Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
+      extraEnvFrom:
+      - secretRef:
+          name: s3-bucket-credentials
+      priorityClassName: system-cluster-critical
+
+    store_gateway:
+      persistentVolume:
+        size: 10Gi
+      replicas: 1
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      extraEnvFrom:
+      - secretRef:
+          name: s3-bucket-credentials
+      topologySpreadConstraints:
+        maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: target # support for enterprise.legacyLabels
+                operator: In
+                values:
+                - store-gateway
+            topologyKey: 'kubernetes.io/hostname'
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - store-gateway
+            topologyKey: 'kubernetes.io/hostname'
+      zoneAwareReplication:
+        topologyKey: 'kubernetes.io/hostname'
+      priorityClassName: system-cluster-critical
+
+    nginx:
+      ingress:
+        enabled: true
+        ingressClassName: pomerium
+        annotations:
+          ingress.pomerium.io/policy: |
+            allow:
+              and:
+                - user:
+                    is: haggishunk
+          ingress.pomerium.io/pass_identity_headers: 'true'
+        hosts:
+        - host: mimir.mattera.io
+          paths:
+          - path: /
+            pathType: Prefix
+      replicas: 1
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      priorityClassName: system-cluster-critical
+
+    gateway:
+      replicas: 1
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      priorityClassName: system-cluster-critical
+
+    # TODO fix kube state metrics servicemonitor
+    metaMonitoring:
+      dashboards:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+        clusterLabel: new-dev
+      prometheusRule:
+        enabled: true
+        mimirAlerts: true
+        mimirRules: true
+      grafanaAgent:
+        enabled: false
+        installOperator: false
+        logs:
+          enabled: true
+          remote:
+            url: "http://loki-gateway/loki/api/v1/push"
+            auth:
+              tenantId: infrastructure
+        metrics:
+          remote:
+            url: "http://mimir-nginx:8080/api/v1/push"
+            headers:
+              X-Scope-OrgID: infrastructure
+          scrapeK8s:
+            enabled: true
+            # DEPENDENCY externally managed kube-state-metrics
+            # TODO the kube-state-metrics service stood up by kube-prometheus-stack uses
+            # port `http` whereas this templating is hardcoded to `http-metrics`
+            # we should consider if mimir's rules can play nicely with kps servicemonitor
+            kubeStateMetrics:
+              namespace: monitoring
+              labelSelectors:
+                app.kubernetes.io/name: kube-state-metrics
+                app.kubernetes.io/instance: kube-prometheus-stack

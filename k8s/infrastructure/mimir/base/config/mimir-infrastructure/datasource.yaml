@@ -1,0 +1,20 @@
+---
+apiVersion: 1
+datasources:
+- name: Mimir Infrastructure
+  type: prometheus
+  uid: mimir-infrastructure
+  url: http://mimir-nginx:8080/prometheus
+  typeLogoUrl: public/app/plugins/datasource/prometheus/img/mimir_logo.svg
+  access: proxy
+  isDefault: false
+  jsonData:
+    timeInterval: 30s
+    manageAlerts: true
+    alertmanagerUid: mimir-alertmanager-infrastructure
+    prometheusType: Mimir
+    prometheusVersion: '2.4.0'
+    httpMethod: GET
+    httpHeaderName1: 'X-Scope-OrgID'
+  secureJsonData:
+    httpHeaderValue1: 'infrastructure'

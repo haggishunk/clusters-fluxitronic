@@ -1,0 +1,17 @@
+---
+apiVersion: 1
+datasources:
+- name: Mimir Alertmanager Infrastructure
+  type: alertmanager
+  uid: mimir-alertmanager-infrastructure
+  url: http://mimir-nginx:8080/
+  typeLogoUrl: public/app/plugins/datasource/prometheus/img/mimir_logo.svg
+  access: proxy
+  isDefault: false
+  jsonData:
+    handleGrafanaManagedAlerts: true
+    implementation: mimir
+    httpMethod: POST
+    httpHeaderName1: 'X-Scope-OrgID'
+  secureJsonData:
+    httpHeaderValue1: 'infrastructure'
