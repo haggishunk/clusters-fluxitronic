@@ -7,7 +7,7 @@ datasources:
   url: http://mimir-nginx/prometheus
   typeLogoUrl: public/app/plugins/datasource/prometheus/img/mimir_logo.svg
   access: proxy
-  isDefault: false
+  isDefault: true
   jsonData:
     timeInterval: 30s
     manageAlerts: true
