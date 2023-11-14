@@ -11,7 +11,7 @@ spec:
       chart: mimir
       sourceRef:
         kind: HelmRepository
-        name: mimir-distributed
+        name: grafana
         namespace: flux-system
       version: "4.4.0-weekly.232"
   interval: 1h0m0s
