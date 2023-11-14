@@ -49,12 +49,12 @@ spec:
         path: /spec/resources/limits
         create: true
         value:
-          memory: 64Mi
+          memory: 256Mi
       - op: add
         path: /spec/resources/requests
         create: true
         value:
-          memory: 64Mi
-          cpu: 50m
+          memory: 256Mi
+          cpu: 100m
     target:
       kind: GrafanaAgent
