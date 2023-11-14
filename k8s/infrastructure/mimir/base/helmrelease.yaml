@@ -119,6 +119,9 @@ spec:
         requests:
           cpu: 200m
           memory: 128Mi
+      extraEnvFrom:
+      - secretRef:
+          name: s3-bucket-credentials
       priorityClassName: system-cluster-critical
 
     distributor:
@@ -168,26 +171,26 @@ spec:
       priorityClassName: system-cluster-critical
 
     admin-cache:
-      enabled: true
+      enabled: false
       replicas: 1
       priorityClassName: system-cluster-critical
 
     chunks-cache:
-      enabled: true
+      enabled: false
       replicas: 1
       priorityClassName: system-cluster-critical
 
     index-cache:
-      enabled: true
+      enabled: false
       replicas: 1
       priorityClassName: system-cluster-critical
 
     metadata-cache:
-      enabled: true
+      enabled: false
       priorityClassName: system-cluster-critical
 
     results-cache:
-      enabled: true
+      enabled: false
       replicas: 1
       priorityClassName: system-cluster-critical
 
