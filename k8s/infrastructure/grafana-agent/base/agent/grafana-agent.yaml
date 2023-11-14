@@ -10,3 +10,6 @@ metadata:
     app.kubernetes.io/part-of: grafana-agent
 spec:
   serviceAccountName: grafana-agent
+  resources:
+    requests: {}
+    limits: {}

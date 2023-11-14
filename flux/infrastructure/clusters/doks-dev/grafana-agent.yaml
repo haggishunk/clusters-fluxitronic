@@ -15,15 +15,17 @@ spec:
   prune: true
   patches:
   - patch: |
-      - op: replace
-        path: spec/resources
+      - op: add
+        path: /spec/resources/limits
         create: true
         value:
-          limits:
-            memory: 64Mi
-          requests:
-            memory: 64Mi
-            cpu: 50m
+          memory: 64Mi
+      - op: add
+        path: /spec/resources/requests
+        create: true
+        value:
+          memory: 64Mi
+          cpu: 50m
     target:
       kind: GrafanaAgent
 ---
@@ -43,14 +45,16 @@ spec:
   prune: true
   patches:
   - patch: |
-      - op: replace
-        path: spec/resources
+      - op: add
+        path: /spec/resources/limits
         create: true
         value:
-          limits:
-            memory: 64Mi
-          requests:
-            memory: 64Mi
-            cpu: 50m
+          memory: 64Mi
+      - op: add
+        path: /spec/resources/requests
+        create: true
+        value:
+          memory: 64Mi
+          cpu: 50m
     target:
       kind: GrafanaAgent
