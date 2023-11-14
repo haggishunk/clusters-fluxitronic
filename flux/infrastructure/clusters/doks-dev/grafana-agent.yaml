@@ -28,6 +28,20 @@ spec:
           cpu: 50m
     target:
       kind: GrafanaAgent
+  # labels and tenant
+  - patch: |
+      - op: add
+        path: /spec/metrics/externalLabels
+        create: true
+        value:
+          cluster: doks-dev
+      - op: add
+        path: /spec/metrics/remoteWrite/headers
+        create: true
+        value:
+          X-Scope-OrgId: mattera-io
+    target:
+      kind: GrafanaAgent
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -44,6 +58,7 @@ spec:
   path: k8s/infrastructure/grafana-agent/metrics-only
   prune: true
   patches:
+  # resources
   - patch: |
       - op: add
         path: /spec/resources/limits
@@ -56,5 +71,19 @@ spec:
         value:
           memory: 768Mi
           cpu: 200m
+    target:
+      kind: GrafanaAgent
+  # labels and tenant
+  - patch: |
+      - op: add
+        path: /spec/metrics/externalLabels
+        create: true
+        value:
+          cluster: doks-dev
+      - op: add
+        path: /spec/metrics/remoteWrite/headers
+        create: true
+        value:
+          X-Scope-OrgId: mattera-io
     target:
       kind: GrafanaAgent
