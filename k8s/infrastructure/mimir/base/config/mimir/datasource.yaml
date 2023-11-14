@@ -4,7 +4,7 @@ datasources:
 - name: Mimir
   type: prometheus
   uid: mimir
-  url: http://mimir-nginx:8080/prometheus
+  url: http://mimir-nginx/prometheus
   typeLogoUrl: public/app/plugins/datasource/prometheus/img/mimir_logo.svg
   access: proxy
   isDefault: false
