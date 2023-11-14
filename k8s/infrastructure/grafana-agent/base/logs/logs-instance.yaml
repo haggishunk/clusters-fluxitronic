@@ -10,7 +10,7 @@ metadata:
 spec:
   clients:
   - url: http://loki-gateway/loki/api/v1/push
-    headers: {}
+    tenantId: anonymous
     externalLabels: {}
   # Supply an empty namespace selector to look in all namespaces. Remove
   # this to only look in the same namespace as the LogsInstance CR

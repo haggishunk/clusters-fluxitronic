@@ -34,10 +34,9 @@ spec:
         path: /spec/clients/0/externalLabels
         value:
           cluster: doks-dev
-      - op: add
-        path: /spec/clients/0/headers
-        value:
-          X-Scope-OrgId: mattera-io
+      - op: replace
+        path: /spec/clients/0/tenantId
+        value: mattera-io
     target:
       kind: LogsInstance
 ---
