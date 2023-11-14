@@ -6,18 +6,12 @@ resources:
 - externalsecret.yaml
 - helmrelease.yaml
 configMapGenerator:
-- name: mimir-alertmanager-apps-datasource
+- name: mimir-alertmanager-datasource
   files:
-  - config/mimir-alertmanager-apps/datasource.yaml
-- name: mimir-apps-datasource
+  - config/mimir-alertmanager/datasource.yaml
+- name: mimir-datasource
   files:
-  - config/mimir-apps/datasource.yaml
-- name: mimir-alertmanager-infrastructure-datasource
-  files:
-  - config/mimir-alertmanager-infrastructure/datasource.yaml
-- name: mimir-infrastructure-datasource
-  files:
-  - config/mimir-infrastructure/datasource.yaml
+  - config/mimir/datasource.yaml
 generatorOptions:
   labels:
     grafana_datasource: "1"

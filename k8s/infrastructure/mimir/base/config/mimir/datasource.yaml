@@ -1,9 +1,9 @@
 ---
 apiVersion: 1
 datasources:
-- name: Mimir Apps
+- name: Mimir
   type: prometheus
-  uid: mimir-apps
+  uid: mimir
   url: http://mimir-nginx:8080/prometheus
   typeLogoUrl: public/app/plugins/datasource/prometheus/img/mimir_logo.svg
   access: proxy
@@ -11,10 +11,10 @@ datasources:
   jsonData:
     timeInterval: 30s
     manageAlerts: true
-    alertmanagerUid: mimir-alertmanager-apps
+    alertmanagerUid: mimir-alertmanager
     prometheusType: Mimir
     prometheusVersion: '2.4.0'
     httpMethod: GET
     httpHeaderName1: 'X-Scope-OrgID'
   secureJsonData:
-    httpHeaderValue1: 'apps'
+    httpHeaderValue1: 'mattera-io'
