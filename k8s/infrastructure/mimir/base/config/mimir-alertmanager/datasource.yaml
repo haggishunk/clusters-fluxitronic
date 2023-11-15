@@ -4,7 +4,7 @@ datasources:
 - name: Mimir Alertmanager
   type: alertmanager
   uid: mimir-alertmanager
-  url: http://mimir-nginx:8080/
+  url: http://mimir-nginx:8080/alertmanager
   typeLogoUrl: public/app/plugins/datasource/prometheus/img/mimir_logo.svg
   access: proxy
   isDefault: false
