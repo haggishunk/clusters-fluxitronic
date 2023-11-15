@@ -1,5 +1,8 @@
 ---
 commonLabels:
+- path: spec/logs/instanceSelector/matchLabels
+  create: true
+  kind: GrafanaAgent
 - path: spec/metrics/instanceSelector/matchLabels
   create: true
   kind: GrafanaAgent
