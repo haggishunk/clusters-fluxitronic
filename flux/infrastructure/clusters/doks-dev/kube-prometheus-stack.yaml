@@ -21,24 +21,3 @@ spec:
     namespace: flux-system
   path: k8s/infrastructure/kube-prometheus-stack/doks-dev
   prune: true
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  labels:
-    app: prometheus
-    grafana_datasource: "1"
-  name: prometheus-datasource
-  namespace: monitoring
-data:
-  prometheus-datasource.yaml: |-
-    apiVersion: 1
-    datasources:
-    - name: Prometheus
-      type: prometheus
-      access: proxy
-      url: "http://kube-prometheus-stack-prometheus.monitoring:9090"
-      version: 1
-      isDefault: false
-      jsonData:
-        {}
