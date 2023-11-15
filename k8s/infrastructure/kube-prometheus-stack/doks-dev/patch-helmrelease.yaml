@@ -19,6 +19,7 @@ spec:
               storageClassName: do-block-storage
     # working
     alertmanager:
+      enabled: false ## TURN OFF
       serviceMonitor:
         relabelings:
         # upstream
