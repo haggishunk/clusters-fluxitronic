@@ -122,6 +122,7 @@ spec:
             sourceLabels: [__address__]
     # working
     prometheusOperator:
+      enabled: false ## TURN OFF
       serviceMonitor:
         relabelings:
         # upstream
