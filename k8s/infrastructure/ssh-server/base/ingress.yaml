@@ -22,5 +22,5 @@ spec:
           service:
             name: ssh-server
             port:
-              number: 2222
+              name: ssh
         pathType: ImplementationSpecific
