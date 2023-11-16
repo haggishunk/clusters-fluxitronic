@@ -1,0 +1,29 @@
+---
+apiVersion: monitoring.grafana.com/v1alpha1
+kind: PodLogs
+metadata:
+  name: external-dns
+  namespace: default
+  labels:
+    app.kubernetes.io/name: external-dns
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/managed-by: kustomize
+spec:
+  jobLabel: app.kubernetes.io/name
+  pipelineStages:
+  - cri: {}
+  relabelings:
+  - action: replace
+    replacement: $1
+    separator: /
+    sourceLabels:
+    - __meta_kubernetes_namespace
+    - __meta_kubernetes_pod_container_name
+    targetLabel: job
+  - action: replace
+    sourceLabels:
+    - __meta_kubernetes_pod_container_name
+    targetLabel: name
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: external-dns
