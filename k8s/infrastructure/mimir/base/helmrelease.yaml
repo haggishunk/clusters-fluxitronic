@@ -349,7 +349,6 @@ spec:
           memory: 128Mi
       priorityClassName: system-cluster-critical
 
-    # TODO fix kube state metrics servicemonitor
     metaMonitoring:
       dashboards:
         enabled: true
@@ -360,28 +359,15 @@ spec:
         enabled: true
         mimirAlerts: true
         mimirRules: true
+      # ISSUE: chart does not support logging and k8s metrics scraping
+      #        without deploying a grafana agent, logsinstance and
+      #        metricsinstance.
       grafanaAgent:
         enabled: false
         installOperator: false
         logs:
-          enabled: true
-          remote:
-            url: "http://loki-gateway/loki/api/v1/push"
-            auth:
-              tenantId: infrastructure
+          enabled: false # chart does not support podlogs without grafana agent and logsinstance
         metrics:
-          remote:
-            url: "http://mimir-nginx:8080/api/v1/push"
-            headers:
-              X-Scope-OrgID: infrastructure
+          enabled: false # do not want grafana agent and instances
           scrapeK8s:
-            enabled: true
-            # DEPENDENCY externally managed kube-state-metrics
-            # TODO the kube-state-metrics service stood up by kube-prometheus-stack uses
-            # port `http` whereas this templating is hardcoded to `http-metrics`
-            # we should consider if mimir's rules can play nicely with kps servicemonitor
-            kubeStateMetrics:
-              namespace: monitoring
-              labelSelectors:
-                app.kubernetes.io/name: kube-state-metrics
-                app.kubernetes.io/instance: kube-prometheus-stack
+            enabled: false # do not want grafana agent and instances
