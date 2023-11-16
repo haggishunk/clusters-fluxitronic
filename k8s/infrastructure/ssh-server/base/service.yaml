@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssh-server
+  namespace: default
+spec:
+  ports:
+  - name: ssh
+    port: 2222
+    targetPort: ssh

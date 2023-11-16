@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssh-server
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - name: ssh-server
+        image: lscr.io/linuxserver/openssh-server:latest
+        ports:
+        - containerPort: 2222
+          name: ssh
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Australia/Brisbane"
+        - name: USER_NAME
+          value: "admin"
+        - name: USER_PASSWORD
+          value: "Password01!"
+        - name: PASSWORD_ACCESS
+          value: "true"
+        - name: SUDO_ACCESS
+          value: "true"

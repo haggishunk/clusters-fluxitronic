@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.pomerium.io/pass_identity_headers: "true"
+    ingress.pomerium.io/policy: |
+      allow:
+        and:
+          - user:
+              is: haggishunk
+    ingress.pomerium.io/tcp_upstream: 'true'
+  name: ssh-server
+  namespace: default
+spec:
+  ingressClassName: pomerium
+  rules:
+  - host: ssh-k8s.mattera.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: ssh-server
+            port:
+              name: ssh
+        pathType: ImplementationSpecific
