@@ -8,7 +8,7 @@ spec:
   values:
     resources:
       limits:
-        memory: 256Mi
+        memory: 368Mi
       requests:
-        memory: 256Mi
+        memory: 368Mi
         cpu: 100m
